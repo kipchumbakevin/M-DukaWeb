@@ -15,9 +15,11 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('item_id');
+            $table->string('purchase_id');
             $table->string('quantity');
-            $table->string('sold_price');
+            $table->string('buying_price');
+            $table->string('unit_price');
+            $table->string('total_profit');
             $table->timestamps();
         });
     }

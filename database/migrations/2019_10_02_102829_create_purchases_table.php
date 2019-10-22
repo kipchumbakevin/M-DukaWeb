@@ -18,7 +18,8 @@ class CreatePurchasesTable extends Migration
             $table->integer('item_id');
             $table->unsignedInteger('purchase_image_id');
             $table->foreign('purchase_image_id')->references('id')->on('purchase_images');
-            $table->string('size');
+            $table->integer('size_id')->nullable();
+            $table->string('size')->nullable();
             $table->string('quantity');
             $table->string('buying_price');
             $table->string('selling_price');

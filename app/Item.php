@@ -9,11 +9,17 @@ class Item extends Model
     public function category(){
         return $this->belongsTo(Category::class,'category_id');
     }
+    public function type(){
+        return $this->belongsTo(Type::class,'type_id');
+    }
     public function itemproperty(){
         return $this->hasOne(ItemProperty::class,'itemid');
     }
     public function purchase(){
         return $this->hasMany(Purchase::class,'itemid');
+    }
+    public function sales(){
+        return $this->hasMany(Sales::class,'itemid');
     }
 
     public function getCategoryAttribute()
@@ -21,6 +27,12 @@ class Item extends Model
         $category = Category::where('id',$this->category_id)->first();
 
         return $category->name;
+    }
+    public function getTypeAttribute()
+    {
+        $type = Type::where('id',$this->type_id)->first();
+
+        return $type->name;
     }
 
     public function getPropertyAttribute()

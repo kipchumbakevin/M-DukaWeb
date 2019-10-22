@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemPropertiesTable extends Migration
+class CreateAllTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateItemPropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_properties', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('item_id');
-            $table->string('color');
-            $table->string('design');
-            $table->string('company');
+        Schema::create('all_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateItemPropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_properties');
+        Schema::dropIfExists('all_types');
     }
 }

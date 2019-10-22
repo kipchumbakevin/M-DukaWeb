@@ -16,8 +16,20 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+//post
 Route::post("/addstock","ItemController@insert");
 Route::post("/addexpense","PaymentsController@insert");
+Route::post("/addsales","SalesController@insert");
 Route::post("/addcategory","CategoryController@insert");
-Route::get("/getstock","ItemController@getitems");
+Route::post("/addsize","SizeController@insert");
+Route::post("/addtype","AllTypesController@insert");
+Route::post("/getstock","CategoryController@get_categories_item");
+
+//get
 Route::get("/getexpense","PaymentsController@getexpense");
+Route::get("/getcategories","CategoryController@getCategories");
+Route::get("/getcategoryitem","CategoryController@get_categories_item");
+Route::get("/gettypeitem","TypeController@get_types_item");
+Route::get("/gettypes","TypeController@getTypes");
+Route::get("/getalltypes","AllTypesController@getAllTypes");
+Route::get("/getsales","SalesController@getTotalSales");

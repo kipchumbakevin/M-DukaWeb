@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="" />
+    <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Purchase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Sales.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Sales.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_103003_create_item_properties_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_103003_create_item_properties_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +27,9 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -104,7 +121,9 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1Rdp09ys62ZA99UZJKs0NkIm4P2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -139,11 +158,34 @@
       <updated>1570006603575</updated>
       <workItem from="1570006623028" duration="6109000" />
       <workItem from="1570968510497" duration="28124000" />
-      <workItem from="1571119987700" duration="8978000" />
+      <workItem from="1571119987700" duration="9725000" />
+      <workItem from="1571205516479" duration="1518000" />
+      <workItem from="1571293412375" duration="16259000" />
+      <workItem from="1571377928760" duration="3907000" />
+      <workItem from="1571397426793" duration="2544000" />
+      <workItem from="1571552465835" duration="1581000" />
+      <workItem from="1571557915648" duration="4597000" />
+      <workItem from="1571643183134" duration="8751000" />
+      <workItem from="1571681357174" duration="2558000" />
+      <workItem from="1571725222187" duration="778000" />
+      <workItem from="1571733235143" duration="593000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
