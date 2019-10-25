@@ -2,18 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/AllTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/AllTypes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SizeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SizeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/TypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/TypeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ItemProperty.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ItemProperty.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Payments.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Payments.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Sales.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Sales.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/PurchaseImage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/PurchaseImage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Type.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Type.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102827_create_purchase_images_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102827_create_purchase_images_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_103003_create_item_properties_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_103003_create_item_properties_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_17_064216_create_types_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_17_064216_create_types_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -168,7 +175,15 @@
       <workItem from="1571643183134" duration="8751000" />
       <workItem from="1571681357174" duration="2558000" />
       <workItem from="1571725222187" duration="778000" />
-      <workItem from="1571733235143" duration="593000" />
+      <workItem from="1571733235143" duration="8072000" />
+      <workItem from="1571743724977" duration="5501000" />
+      <workItem from="1571766218405" duration="101000" />
+      <workItem from="1571766668198" duration="76000" />
+      <workItem from="1571810552062" duration="10741000" />
+      <workItem from="1571900249174" duration="1667000" />
+      <workItem from="1571916132098" duration="1600000" />
+      <workItem from="1571926397599" duration="2306000" />
+      <workItem from="1571990301764" duration="1452000" />
     </task>
     <servers />
   </component>

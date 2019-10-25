@@ -23,13 +23,14 @@ Route::post("/addsales","SalesController@insert");
 Route::post("/addcategory","CategoryController@insert");
 Route::post("/addsize","SizeController@insert");
 Route::post("/addtype","AllTypesController@insert");
+Route::post("/gettypeitem","AllTypesController@get_types_item");
 Route::post("/getstock","CategoryController@get_categories_item");
+Route::post("/getcategoryitem","CategoryController@get_categories_item");
 
 //get
 Route::get("/getexpense","PaymentsController@getexpense");
 Route::get("/getcategories","CategoryController@getCategories");
-Route::get("/getcategoryitem","CategoryController@get_categories_item");
-Route::get("/gettypeitem","TypeController@get_types_item");
 Route::get("/gettypes","TypeController@getTypes");
 Route::get("/getalltypes","AllTypesController@getAllTypes");
 Route::get("/getsales","SalesController@getTotalSales");
+Route::get("/getsizes","SizeController@getsizes");

@@ -11,8 +11,21 @@ use Illuminate\Http\Request;
 class SalesController extends Controller
 {
     public function getTotalSales(){
+        $total = 0;
+        $expenseTotal = 0;
         $sale = Sales::all();
-        return $sale;
+        foreach ($sale as $sales){
+            $total += $sales->total_profit;
+        }
+        $expense= Payments::all();
+        foreach ($expense as $expenses){
+            $expenseTotal += $expenses->amount;
+        }
+        $result = [
+            "totalProfit"=>$total,
+            "totalExpense"=>$expenseTotal
+        ];
+        return $result;
     }
     public function insert(Request $request){
       $purchase=  Purchase::find($request['purchase_id']);

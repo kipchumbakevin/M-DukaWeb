@@ -12,4 +12,8 @@ class SizeController extends Controller
         $size->name=$request->input('name');
         $size->save();
     }
+    public function getsizes(){
+        $size = Size::all();
+        return $size;
+    }
 }

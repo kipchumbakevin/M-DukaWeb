@@ -18,18 +18,19 @@ class ItemController extends Controller
 {
     public function insert (Request $request){
         $category=Category::where('name',$request->input('category'))->first();
+        $types=AllTypes::where('name',$request->input('type'))->first();
+//        $type = new Type();
+//        $type->name=$request->input('type');
+//        $type->save();
+
         $item = new Item();
         $item->name=$request->input('name');
         $item->store_id=1;
         $item->category_id=$category->id;
+        $item->type_id=$types->id;
         $item->save();
 
         $new_item = Item::orderby('created_at','desc')->first();
-        $type = new Type();
-        $alltype = AllTypes::where('name',$request->input('type'))->first();
-        $type->type_id=$alltype->id;
-        $type->item_id=$new_item->id;
-        $type->save();
 
         $itemproperty = new ItemProperty();
         $itemproperty->item_id=$new_item->id;
@@ -54,16 +55,15 @@ class ItemController extends Controller
         $new_image->move($destinationPath,$imagename);
 
         $p_image = new PurchaseImage();
+        $p_image->item_id=$new_item->id;
         $p_image->imageurl = $imagename;
         $p_image->save();
 
         $new_p_image = PurchaseImage::orderby('created_at','desc')->first();
 
-        $size=Size::where('name',$request->input('sizename'))->first();
         $purchase=new Purchase();
         $purchase->item_id=$new_item->id;
-        $purchase->purchase_image_id=$new_p_image->id;
-        $purchase->size_id=$size->id;
+        $purchase->size_id=1;
         $purchase->size=$request->input('size');
         $purchase->quantity=$request->input('quantity');
         $purchase->buying_price=$request->input('buyingprice');

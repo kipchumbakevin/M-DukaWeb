@@ -15,6 +15,7 @@ class CreatePurchaseImagesTable extends Migration
     {
         Schema::create('purchase_images', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('item_id');
             $table->string('imageurl');
             $table->timestamps();
         });

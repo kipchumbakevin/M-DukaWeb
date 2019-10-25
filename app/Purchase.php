@@ -16,4 +16,5 @@ protected $fillable=['quantity','buying_price','item_id','selling_price','purcha
     {
         return $this->belongsTo(Item::class, 'quantity');
     }
+
 }

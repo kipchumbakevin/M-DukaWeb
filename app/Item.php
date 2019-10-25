@@ -34,6 +34,11 @@ class Item extends Model
 
         return $type->name;
     }
+    public function getTypeObjectAttribute()
+    {
+        $type = Type::find($this->type_id);
+        return $type;
+    }
 
     public function getPropertyAttribute()
     {
@@ -52,5 +57,14 @@ class Item extends Model
 
         $url = PurchaseImage::where('id',$this->getPurchaseAttribute()->purchase_image_id)->first();
         return  $url->imageurl;
+    }
+    public function getItemsPropertyAttribute(){
+        return ItemProperty::select('color','design','company')->where('item_id',$this->id)->get();
+    }
+    public function getItemsPurchaseAttribute(){
+        return Purchase::select('quantity','size','selling_price')->where('item_id',$this->id)->get();
+    }
+    public function getPurchaseImageAttribute(){
+        return PurchaseImage::select('imageurl')->where('item_id',$this->id)->get();
     }
 }
