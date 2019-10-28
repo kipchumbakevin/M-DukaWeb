@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\AllTypes;
 use App\Category;
 use App\Item;
+use App\ItemGroup;
 use App\Payments;
 use Illuminate\Http\Request;
 
@@ -19,23 +21,26 @@ class CategoryController extends Controller
         return $categories;
     }
 
-    public function get_categories_item(Request $request)
+    public function get_categories_type(Request $request)
     {
-//        dd($request->all());
-//        $name = $request['category_name'];
-//        $itemdata = Item::join('categories','items.category_id','=','categories.id')
-//            ->join('types','items.id','=','types.item_id')
-//            ->join('types','all_types.id','=','types.type_id')
-//            ->join('item_properties','items.id','=','item_properties.item_id')
-//            ->join('purchases','items.id','=','purchases.item_id')
-//            ->join('purchase_images','purchases.purchase_image_id','=','purchase_images.id')
-//            ->select('items.*','categories.name as category','all_types.name as type','item_properties.color as color',
-//                'item_properties.design as design','item_properties.company as company',
-//                'purchases.size as size','purchases.quantity as quantity','purchase_images.imageurl as image')
-//            ->where('categories.name',$name)
-//            ->get();
-        $category = Category::whereName($request['category_name'])->first();
-        $itemdata = $category->types;
+        $namecategory = $request['namecategory'];
+        $namegroup = $request['namegroup'];
+        $itemdata = Item::join('all_types','items.type_id','=','all_types.id')
+            ->join('item_groups','all_types.group_id','=','item_groups.id')
+            ->join('categories','items.category_id','=','categories.id')
+            ->select('all_types.name as typeName')
+            ->where('item_groups.name',$namegroup)
+            ->where('categories.name',$namecategory)
+            ->get();
+
+//        dd($itemdata);
+//        $category = Category::whereName($request['category_name'])->first();
+//        $itemdata = $category->types;
         return $itemdata;
+    }
+    public function get_group(Request $request){
+        $category = Category::whereName($request['category_name'])->first();
+        $groupdata = $category->group;
+        return $groupdata;
     }
 }

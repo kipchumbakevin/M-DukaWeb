@@ -15,6 +15,7 @@ class CreateAllTypesTable extends Migration
     {
         Schema::create('all_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('group_id');
             $table->string('name');
             $table->timestamps();
         });

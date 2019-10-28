@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AllTypes;
 use App\Category;
 use App\Item;
+use App\ItemGroup;
 use App\ItemProperty;
 use App\Payments;
 use App\Purchase;
@@ -19,15 +20,14 @@ class ItemController extends Controller
     public function insert (Request $request){
         $category=Category::where('name',$request->input('category'))->first();
         $types=AllTypes::where('name',$request->input('type'))->first();
-//        $type = new Type();
-//        $type->name=$request->input('type');
-//        $type->save();
+        $itemgroup = ItemGroup::where('name',$request->input('item_group'))->first();
 
         $item = new Item();
         $item->name=$request->input('name');
         $item->store_id=1;
         $item->category_id=$category->id;
         $item->type_id=$types->id;
+        $item->item_group_id=$itemgroup->id;
         $item->save();
 
         $new_item = Item::orderby('created_at','desc')->first();
@@ -71,30 +71,17 @@ class ItemController extends Controller
         $purchase->total=$request->input('quantity') * $request->input('buyingprice');
         $purchase->save();
 
-//        $sale =new Sales();
-//        $sale->item_id=$new_item->id;
-//        $sale->buying_price=$request->input('buyingprice');
-//        $sale->save();
-
 		return response()->json([
             'message'=>'Added successfully',
         ],201);
-
-//        $payment = new Payments();
-//        $payment->amount=2;
     }
-    public function itemsale(Request $request){
-        $iitem = Item::orderby('created_at','desc')->first();
-        $sale = new Sales();
-        $sale->item_id=$iitem->id;
-        $sale->quantity=$request->input('quantity');
-        $sale->sold_price=$request->input('costprice');
-        $sale->total=$request->input('quantity') * $request->input('costprice');
-        $sale->save();
-        return response()->json([
-            'message'=>'sale added',
-            'error'=>false,
-        ],201);
+    public function itemedit(Request $request){
+        $purchase = Purchase::find($request['item_id']);
+        $item = new Purchase();
+        $item->item_id=$request->input('itemid');
+        $item->quantity=$request->input('quantity');
+        $purchase->update(
+            ['quantity'=>$request->input('quantity')]);
     }
     public function getItems(){
         $itemdata = Item::join('categories','items.category_id','=','categories.id')

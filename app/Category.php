@@ -14,6 +14,16 @@ class Category extends Model
     {
         return Item::whereCategoryId($this->id)->get();
     }
+    public function getGroupAttribute() {
+        $group = [];
+        $items = Item::where('category_id',$this->id)->get();
+
+        foreach ($items as $item){
+            array_push($group,ItemGroup::where('id',$item->item_group_id)->first());
+        }
+        return array_unique($group);
+
+    }
 
     public function getTypesAttribute() {
         $types = [];

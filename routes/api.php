@@ -18,14 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 //post
 Route::post("/addstock","ItemController@insert");
+Route::post("/editstock","ItemController@itemedit");
 Route::post("/addexpense","PaymentsController@insert");
 Route::post("/addsales","SalesController@insert");
 Route::post("/addcategory","CategoryController@insert");
 Route::post("/addsize","SizeController@insert");
 Route::post("/addtype","AllTypesController@insert");
+Route::post("/additemgroup","ItemGroupController@insert");
+Route::post("/gettypegroup","ItemGroupController@get_types");
 Route::post("/gettypeitem","AllTypesController@get_types_item");
-Route::post("/getstock","CategoryController@get_categories_item");
-Route::post("/getcategoryitem","CategoryController@get_categories_item");
+Route::post("/getgroup","CategoryController@get_group");
+Route::post("/getcategorytype","CategoryController@get_categories_type");
 
 //get
 Route::get("/getexpense","PaymentsController@getexpense");
@@ -34,3 +37,4 @@ Route::get("/gettypes","TypeController@getTypes");
 Route::get("/getalltypes","AllTypesController@getAllTypes");
 Route::get("/getsales","SalesController@getTotalSales");
 Route::get("/getsizes","SizeController@getsizes");
+Route::get("/getgroups","ItemGroupController@getGroups");
