@@ -31,16 +31,16 @@ class CategoryController extends Controller
             ->select('all_types.name as typeName')
             ->where('item_groups.name',$namegroup)
             ->where('categories.name',$namecategory)
-            ->get();
+            ->groupBy('all_types.name')->get();
 
 //        dd($itemdata);
 //        $category = Category::whereName($request['category_name'])->first();
 //        $itemdata = $category->types;
         return $itemdata;
     }
-    public function get_group(Request $request){
+    public function get_groups(Request $request){
         $category = Category::whereName($request['category_name'])->first();
-        $groupdata = $category->group;
+        $groupdata = $category->groups;
         return $groupdata;
     }
 }

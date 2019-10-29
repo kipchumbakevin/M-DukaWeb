@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 //post
 Route::post("/addstock","ItemController@insert");
+Route::post("/deletestock","ItemController@deleteItem");
 Route::post("/editstock","ItemController@itemedit");
 Route::post("/addexpense","PaymentsController@insert");
 Route::post("/addsales","SalesController@insert");
@@ -27,7 +28,7 @@ Route::post("/addtype","AllTypesController@insert");
 Route::post("/additemgroup","ItemGroupController@insert");
 Route::post("/gettypegroup","ItemGroupController@get_types");
 Route::post("/gettypeitem","AllTypesController@get_types_item");
-Route::post("/getgroup","CategoryController@get_group");
+Route::post("/getgroup","CategoryController@get_groups");
 Route::post("/getcategorytype","CategoryController@get_categories_type");
 
 //get

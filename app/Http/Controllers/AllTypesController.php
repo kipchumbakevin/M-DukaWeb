@@ -34,7 +34,7 @@ class AllTypesController extends Controller
             ->join('purchase_images','purchase_images.item_id','=','items.id')
             ->select('items.*','item_properties.color as color','item_properties.design as design',
                 'item_properties.company as company','purchases.size as size','purchases.quantity as quantity',
-                'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName','item_groups.name as group')->
+                'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName')->
             where('categories.name',$namecategory)
             ->where('all_types.name',$name)
             ->get();

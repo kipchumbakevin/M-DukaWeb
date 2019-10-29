@@ -14,14 +14,16 @@ class Category extends Model
     {
         return Item::whereCategoryId($this->id)->get();
     }
-    public function getGroupAttribute() {
-        $group = [];
+    public function getGroupsAttribute() {
+        $groups = [];
         $items = Item::where('category_id',$this->id)->get();
 
         foreach ($items as $item){
-            array_push($group,ItemGroup::where('id',$item->item_group_id)->first());
+            if(!in_array($item->group, $groups)) {
+                array_push($groups, $item->group);
+            }
         }
-        return array_unique($group);
+        return $groups;
 
     }
 
