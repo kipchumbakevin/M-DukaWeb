@@ -64,7 +64,6 @@ class ItemController extends Controller
 
         $purchase = new Purchase();
         $purchase->item_id = $new_item->id;
-        $purchase->size_id = 1;
         $purchase->size = $request->input('size');
         $purchase->quantity = $request->input('quantity');
         $purchase->buying_price = $request->input('buyingprice');
@@ -82,9 +81,6 @@ class ItemController extends Controller
         $purchase = Purchase::find($request['item_id']);
         $item = Item::find($request['item_id']);
         $itemproperties = ItemProperty::find($request['item_id']);
-//        $item = new Purchase();
-//        $item->item_id=$request->input('itemid');
-//        $item->quantity=$request->input('quantity');
         $purchase->update([
             'quantity' => $request['quantity'],
             'size' => $request['size'],
@@ -99,6 +95,9 @@ class ItemController extends Controller
             'design'=>$request['design'],
             'company'=>$request['company']
         ]);
+        return response()->json([
+            'message' => 'edited successfully',
+        ], 201);
     }
 
     public function deleteItem(Request $request)
@@ -114,6 +113,10 @@ class ItemController extends Controller
         $item->delete();
         $itemproperties->delete();
         $purchaseimage->delete();
+
+        return response()->json([
+            'message' => 'Deleted successfully',
+        ], 201);
     }
 
 }
