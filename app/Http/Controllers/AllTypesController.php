@@ -7,9 +7,14 @@ use App\Item;
 use App\ItemGroup;
 use App\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AllTypesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function insert(Request $request){
         $alltype = new AllTypes();
         $group = ItemGroup::where('name',$request['itemgroup'])->first();
@@ -24,7 +29,7 @@ class AllTypesController extends Controller
     public function get_types_item(Request $request)
     {
 
-        $name = $request['name'];
+        $nametype = $request['nametype'];
         $namecategory = $request['namecategory'];
         $itemdata = Item::join('item_properties','items.id','=','item_properties.item_id')
             ->join('categories','items.category_id','=','categories.id')
@@ -34,12 +39,12 @@ class AllTypesController extends Controller
             ->join('purchase_images','purchase_images.item_id','=','items.id')
             ->select('items.*','item_properties.color as color','item_properties.design as design',
                 'item_properties.company as company','purchases.size as size','purchases.quantity as quantity',
+                'purchases.selling_price as sellingprice',
                 'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName')->
             where('categories.name',$namecategory)
-            ->where('all_types.name',$name)
+            ->where('all_types.name',$nametype)
+            ->where('items.user_id',Auth::user()->id)
             ->get();
-
-//        dd($itemdata);
 
         return $itemdata ;
     }

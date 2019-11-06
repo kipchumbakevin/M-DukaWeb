@@ -16,8 +16,7 @@ class CreatePurchasesTable extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('item_id');
-            $table->integer('size_id')->nullable();
-            $table->string('size')->nullable();
+            $table->string('size');
             $table->string('quantity');
             $table->string('buying_price');
             $table->string('selling_price');

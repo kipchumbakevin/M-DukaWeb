@@ -8,17 +8,19 @@ use App\Item;
 use App\ItemGroup;
 use App\Payments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     public function insert(Request $request){
         $category = new Category();
         $category->name=$request->input('name');
         $category->save();
-    }
-    public function getCategories(){
-        $categories = Category::all();
-        return $categories;
     }
 
     public function get_categories_type(Request $request)
@@ -31,6 +33,7 @@ class CategoryController extends Controller
             ->select('all_types.name as typeName')
             ->where('item_groups.name',$namegroup)
             ->where('categories.name',$namecategory)
+            ->where('items.user_id',Auth::user()->id)
             ->groupBy('all_types.name')->get();
 
 //        dd($itemdata);

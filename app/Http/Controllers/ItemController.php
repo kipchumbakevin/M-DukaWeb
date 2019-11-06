@@ -12,19 +12,25 @@ use App\Purchase;
 use App\PurchaseImage;
 use App\Sales;
 use App\Size;
-use App\Type;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function insert(Request $request)
     {
+        $userid = $request->user()->id;
         $category = Category::where('name', $request->input('category'))->first();
         $types = AllTypes::where('name', $request->input('type'))->first();
         $itemgroup = ItemGroup::where('name', $request->input('item_group'))->first();
 
         $item = new Item();
         $item->name = $request->input('name');
+        $item->user_id = $userid;
         $item->store_id = 1;
         $item->category_id = $category->id;
         $item->type_id = $types->id;
@@ -45,7 +51,17 @@ class ItemController extends Controller
 //        $category->save();
 
 
-        $this->validate($request, [
+       // $new_p_image = PurchaseImage::orderby('created_at', 'desc')->first();
+
+        $purchase = new Purchase();
+        $purchase->item_id = $new_item->id;
+        $purchase->size = $request->input('size');
+        $purchase->quantity = $request->input('quantity');
+        $purchase->buying_price = $request->input('buyingprice');
+        $purchase->selling_price = $request->input('sellingprice');
+        $purchase->total = $request->input('quantity') * $request->input('buyingprice');
+        $purchase->save();
+		$this->validate($request, [
 
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
@@ -59,17 +75,6 @@ class ItemController extends Controller
         $p_image->item_id = $new_item->id;
         $p_image->imageurl = $imagename;
         $p_image->save();
-
-        $new_p_image = PurchaseImage::orderby('created_at', 'desc')->first();
-
-        $purchase = new Purchase();
-        $purchase->item_id = $new_item->id;
-        $purchase->size = $request->input('size');
-        $purchase->quantity = $request->input('quantity');
-        $purchase->buying_price = $request->input('buyingprice');
-        $purchase->selling_price = $request->input('sellingprice');
-        $purchase->total = $request->input('quantity') * $request->input('buyingprice');
-        $purchase->save();
 
         return response()->json([
             'message' => 'Added successfully',

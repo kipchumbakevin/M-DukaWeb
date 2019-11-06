@@ -8,6 +8,10 @@ class Item extends Model
 {
     protected $fillable = ['name', 'type_id', 'category_id', 'item_group_id', 'store_id'];
 
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

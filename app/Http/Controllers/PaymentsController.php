@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Payments;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function insert(Request $request){
+        $userid = $request->user()->id;
         $payment = new Payments();
+        $payment->user_id = $userid;
         $payment->amount=$request->input('amount');
         $payment->comment=$request->input('expensetype');
         $payment->save();
@@ -31,7 +38,7 @@ class PaymentsController extends Controller
         ],201);
     }
     public function getYear(){
-        $expense = Payments::all();
+        $expense = Payments::all()->where('user_id',Auth::user()->id);
         $data = [];
         foreach ($expense as $exp){
             $year = $exp->created_at->format('Y');
@@ -42,7 +49,7 @@ class PaymentsController extends Controller
         return $data;
     }
     public function getMonths(Request $request){
-        $payments = Payments::all();
+        $payments = Payments::all()->where('user_id',Auth::user()->id);;
         $months = [];
         foreach ($payments as $payment){
             $month = $payment->createdAt($payment->created_at->format('m'));
@@ -57,7 +64,7 @@ class PaymentsController extends Controller
 
     }
     public function getExpenses(Request $request){
-        $payments = Payments::all();
+        $payments = Payments::all()->where('user_id',Auth::user()->id);;
         $expenses = [];
         foreach ($payments as $payment){
             if ($payment->createdAt($payment->created_at->format('m')) == $request['month'] && $payment->created_at->format('Y') == $request['year']){

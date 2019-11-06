@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
@@ -16,8 +17,8 @@ class Category extends Model
     }
     public function getGroupsAttribute() {
         $groups = [];
-        $items = Item::where('category_id',$this->id)->get();
-
+        $items = Item::where('category_id',$this->id)->where('user_id',Auth::user()->id)
+            ->get();
         foreach ($items as $item){
             if(!in_array($item->group, $groups)) {
                 array_push($groups, $item->group);
