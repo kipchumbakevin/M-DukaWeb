@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Message;
 use App\MessageImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
@@ -13,10 +14,10 @@ class MessagesController extends Controller
         $this->middleware('auth:api');
     }
     public function insert(Request $request){
-        $userid = $request->user()->id;
+        $userid = Auth::user()->id;
         $message = new Message();
         $image = new MessageImage();
-        $image->user_id = $userid;
+        $message->user_id = $userid;
         $message->message=$request->input('message');
         $message->save();
 

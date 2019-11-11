@@ -78,9 +78,6 @@ class AuthController extends Controller
                 $tokenResult->token->expires_at
             )->toDateTimeString()
         ]);
-        return response()->json([
-            'message' => 'Successfully created user!'
-        ], 201);
     }
 
     /**

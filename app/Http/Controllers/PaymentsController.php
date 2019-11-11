@@ -13,7 +13,7 @@ class PaymentsController extends Controller
         $this->middleware('auth:api');
     }
     public function insert(Request $request){
-        $userid = $request->user()->id;
+        $userid = Auth::user()->id;
         $payment = new Payments();
         $payment->user_id = $userid;
         $payment->amount=$request->input('amount');

@@ -29,7 +29,17 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+//codes
+Route::post("/sendcode","NoAuthController@sendCode");//body(phone)
+Route::post("/confirmcode","ChangePersonalInfoController@confirmCode");//body(code)
 
+
+//change username,first and last name
+Route::post("/changedetails","ChangePersonalInfoController@changedetails");//body(username,firstname,lastname)
+//change phone
+Route::post("/changephone","ChangePersonalInfoController@changephone");
+//change password
+Route::post("/changepassword","ChangePersonalInfoController@changePassword");
 
 //sales
 Route::post("/addsales","SalesController@insert");//body(quantity,costprice,purchase_id)
@@ -46,7 +56,8 @@ Route::get("/getyears","PaymentsController@getYear");
 Route::post("/addexpense","PaymentsController@insert");//body(amount,expensetype)
 Route::post("/deleteexpense","PaymentsController@deleteExpense");//body(id)
 Route::post("/getexpenses","PaymentsController@getExpenses");//body(month,year)
-
+//suggested restock
+Route::post("/suggestedrestock","AllTypesController@get_suggested_restock");
 
 //stock
 Route::post("/addstock","ItemController@insert");
@@ -54,19 +65,20 @@ Route::post("/gettypegroup","ItemGroupController@get_types");//body(category_nam
 Route::post("/gettypeitem","AllTypesController@get_types_item");//body(nametype,namecategory)
 Route::post("/deletestock","ItemController@deleteItem");//body(item_id)
 Route::post("/editstock","ItemController@itemedit");//body(item_id)
+Route::post("/restock","ItemController@newPurchase");//body(item_id,buyingp,quantity)
 
 //sizes
 Route::post("/addsize","SizeController@insert");//body(name)
 Route::get("/getsizes","SizeController@getsizes");
 
 //types
-Route::post("/addtype","AllTypesController@insert");//body(name,itemgroup)
+Route::post("/addtype","NoAuthController@insertTypes");//body(name,itemgroup)
 Route::post("/getcategorytype","CategoryController@get_categories_type");//body(namegroup,namecategory)
 Route::get("/getalltypes","AllTypesController@getAllTypes");
 
 
 //categories
-Route::post("/addcategory","CategoryController@insert");//body(name)
+Route::post("/addcategory","NoAuthController@insert");//body(name)
 
 //itemgroup
 Route::post("/additemgroup","ItemGroupController@insert");//body(name)
@@ -79,6 +91,9 @@ Route::get("/getqa","QuestionsController@getQA");
 
 //message
 Route::post("/sendmessage","MessagesController@insert");
+
+//buyingprice
+Route::get("/getbuyingprices","BuyingPriceController@getBuyingPrice");
 
 //get
 Route::get("/getcategories","NoAuthController@getCategories");

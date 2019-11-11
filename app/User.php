@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'location','first_name','last_name', 'username','phone', 'password',
+        'location','first_name','last_name', 'username','phone', 'password','code',
     ];
 
     /**
@@ -43,18 +44,37 @@ class User extends Authenticatable
 
     public function getSalesAttribute()
     {
-        $items = Item::where('user_id',$this->id)->get();
-//        dd($items);
-        $purchases = [];
-        $sales =[];
-        foreach ($items as $item){
-            array_push($purchases,Purchase::where('item_id',$item->id)->first());
+        $sales = Sales::where('user_id',$this->id)->get();
+        $allsales = [];
+        foreach ($sales as $sale){
+            array_push($allsales,$sale);
         }
+        return $allsales;
+//        $items = Item::where('user_id',$this->id)->get();
+////        dd($items);
+//        $purchases = [];
+//        $sales =[];
+//        foreach ($items as $item){
+//            array_push($purchases,Purchase::where('item_id',$item->id)->first());
+//        }
+//
+//        foreach ($purchases as $purchase){
+//            array_push($sales,Sales::where('purchase_id',$purchase->id)->get());
+//        }
+////        dd($sales);
+//
+//        return $sales;
+    }
 
-        foreach ($purchases as $purchase){
-            array_push($sales,Sales::where('purchase_id',$purchase->id)->first());
+    public function getPricesAttribute()
+    {
+        $buyingp = BuyingPrice::where('user_id',$this->id)->get();
+        $allprices = [];
+        foreach ($buyingp as $buyingprice){
+            if (!in_array($buyingprice,$allprices)) {
+                array_push($allprices, $buyingprice);
+            }
         }
-
-        return $sales;
+        return $allprices;
     }
 }

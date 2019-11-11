@@ -17,12 +17,6 @@ class CategoryController extends Controller
         $this->middleware('auth:api');
     }
 
-    public function insert(Request $request){
-        $category = new Category();
-        $category->name=$request->input('name');
-        $category->save();
-    }
-
     public function get_categories_type(Request $request)
     {
         $namecategory = $request['namecategory'];

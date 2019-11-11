@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AllTypes;
+use App\BuyingPrice;
 use App\Category;
 use App\Item;
 use App\ItemGroup;
@@ -31,7 +32,6 @@ class ItemController extends Controller
         $item = new Item();
         $item->name = $request->input('name');
         $item->user_id = $userid;
-        $item->store_id = 1;
         $item->category_id = $category->id;
         $item->type_id = $types->id;
         $item->item_group_id = $itemgroup->id;
@@ -46,34 +46,33 @@ class ItemController extends Controller
         $itemproperty->company = $request->input('company');
         $itemproperty->save();
 
-//        $category = new Category();
-//        $category->name=$request->input('category');
-//        $category->save();
 
+        $bp = new BuyingPrice();
+        $bp->item_id = $new_item->id;
+        $bp->amount=$request->input('buyingprice');
+        $bp->save();
 
-       // $new_p_image = PurchaseImage::orderby('created_at', 'desc')->first();
 
         $purchase = new Purchase();
         $purchase->item_id = $new_item->id;
         $purchase->size = $request->input('size');
         $purchase->quantity = $request->input('quantity');
-        $purchase->buying_price = $request->input('buyingprice');
         $purchase->selling_price = $request->input('sellingprice');
         $purchase->total = $request->input('quantity') * $request->input('buyingprice');
         $purchase->save();
-		$this->validate($request, [
-
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
-        ]);
-        $new_image = $request->file('image');
-        $imagename = time() . '.' . $new_image->getClientOriginalExtension();
-        $destinationPath = public_path('/images');
-        $new_image->move($destinationPath, $imagename);
+//		$this->validate($request, [
+//
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//
+//        ]);
+//        $new_image = $request->file('image');
+//        $imagename = time() . '.' . $new_image->getClientOriginalExtension();
+//        $destinationPath = public_path('/images');
+//        $new_image->move($destinationPath, $imagename);
 
         $p_image = new PurchaseImage();
         $p_image->item_id = $new_item->id;
-        $p_image->imageurl = $imagename;
+        $p_image->imageurl = $request->input('image');
         $p_image->save();
 
         return response()->json([
@@ -85,32 +84,48 @@ class ItemController extends Controller
     {
         $purchase = Purchase::find($request['item_id']);
         $item = Item::find($request['item_id']);
-        $itemproperties = ItemProperty::find($request['item_id']);
+//        $itemproperties = ItemProperty::find($request['item_id']);
         $purchase->update([
-            'quantity' => $request['quantity'],
-            'size' => $request['size'],
+//            'quantity' => $request['quantity'],
+//            'size' => $request['size'],
             'selling_price'=>$request['sellingprice']
         ]);
         $item->update([
             'name'=>$request['name']
 
         ]);
-        $itemproperties->update([
-            'color'=>$request['color'],
-            'design'=>$request['design'],
-            'company'=>$request['company']
-        ]);
+//        $itemproperties->update([
+//            'color'=>$request['color'],
+//            'design'=>$request['design'],
+//            'company'=>$request['company']
+//        ]);
         return response()->json([
             'message' => 'edited successfully',
         ], 201);
     }
 
+    public function newPurchase(Request $request){
+        $purchase = Purchase::find($request['item_id']);
+        $bp = new BuyingPrice();
+        $purchase->update([
+            'quantity'=>($purchase->quantity + $request['quantity'])
+        ]);
+		$purchase->save();
+        $bp->item_id=$request->input('item_id');
+        $bp->amount=$request->input('buyingp');
+        $bp->save();
+		return response()->json([
+            'message' => 'edited successfully',
+        ], 201);
+
+    }
     public function deleteItem(Request $request)
     {
         $purchase = Purchase::find($request['item_id']);
         $item = Item::find($request['item_id']);
         $itemproperties = ItemProperty::find($request['item_id']);
         $purchaseimage = PurchaseImage::find($request['item_id']);
+		$bp = BuyingPrice::find('item_id',$request['item_id']);
 //        $item = new Purchase();
 //        $item->item_id=$request->input('itemid');
 //        $item->quantity=$request->input('quantity');
@@ -118,6 +133,7 @@ class ItemController extends Controller
         $item->delete();
         $itemproperties->delete();
         $purchaseimage->delete();
+		$bp->delete();
 
         return response()->json([
             'message' => 'Deleted successfully',

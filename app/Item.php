@@ -95,4 +95,5 @@ class Item extends Model
     {
         return PurchaseImage::select('imageurl')->where('item_id', $this->id)->get();
     }
+
 }
