@@ -45,8 +45,6 @@ class AllTypesController extends Controller
     }
     public function get_suggested_restock(Request $request)
     {
-        $pp = Purchase::all('quantity');
-        $ppp = $pp->values();
         $namecategory = $request['namecategory'];
         $itemdata = Item::join('item_properties','items.id','=','item_properties.item_id')
             ->join('categories','items.category_id','=','categories.id')
@@ -58,7 +56,7 @@ class AllTypesController extends Controller
                 'item_properties.company as company','purchases.size as size','purchases.quantity as quantity',
                 'purchases.selling_price as sellingprice',
                 'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName')->
-                where($ppp<= Purchase::FIGURE)->
+                where('purchases.quantity','<=',2)->
             where('categories.name',$namecategory)
             ->where('items.user_id',Auth::user()->id)
             ->get();

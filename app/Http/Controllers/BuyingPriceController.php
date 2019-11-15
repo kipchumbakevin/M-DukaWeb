@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class BuyingPriceController extends Controller
 {
-   
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function getBuyingPrice(Request $request)
     {
         $bp = BuyingPrice::all()->where('item_id',$request['item_id']);

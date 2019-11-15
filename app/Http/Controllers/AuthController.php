@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -34,11 +35,11 @@ class AuthController extends Controller
             'username' => $request->username,
             'phone' => $request->phone,
             'location' => $request->location,
-            'password' => bcrypt($request->password)
+            'password' => Hash::make($request->password)
         ]);
         $user->save();
         return response()->json([
-            'message' => 'Successfully created user!'
+            'message' => 'Successfully registered!'
         ], 201);
     }
 
@@ -62,7 +63,7 @@ class AuthController extends Controller
         $credentials = request(['username', 'password']);
         if (!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Credentials do no match'
             ], 401);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');

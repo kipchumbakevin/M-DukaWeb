@@ -27,13 +27,34 @@ class ChangePersonalInfoController extends Controller
         ], 201);
     }
 
+    public function generateChangePhoneCode(Request $request)
+    {
+        $codes = rand(1000,9999);
+        $user = User::find(Auth::user()->id);
+        $phone = $user->phone;
+        if ($phone == $request['oldphone']){
+            $user->update([
+                'code'=>$codes
+            ]);
+			 return response()->json([
+                'message' => 'success',
+            ],201);
+        }else{
+            return response()->json([
+                'message' => 'Numbers do not match',
+            ],201);
+        }
+    }
+
     public function changePhone(Request $request)
     {
+      //  Hash::check($request['pass'],$user->password)
         $user = User::find(Auth::user()->id);
-        $phone= $user->phone;
-        if ($phone==$request['oldphone']) {
+        $code= $user->code;
+        if ($code==$request['code']) {
             $user->update([
-                'phone' => $request['newphone']
+                'phone' => $request['newphone'],
+				'code'=>null
             ]);
             return response()->json([
                 'message' => 'success',

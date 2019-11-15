@@ -5,19 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MessagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MessagesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PaymentsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PaymentsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Purchase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Purchase.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BuyingPriceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BuyingPriceController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102829_create_purchases_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_103028_create_sales_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -234,7 +224,11 @@
       <workItem from="1573369993894" duration="885000" />
       <workItem from="1573379821438" duration="2225000" />
       <workItem from="1573388375710" duration="4006000" />
-      <workItem from="1573456255044" duration="776000" />
+      <workItem from="1573456255044" duration="1977000" />
+      <workItem from="1573648603741" duration="674000" />
+      <workItem from="1573714484473" duration="1394000" />
+      <workItem from="1573725870707" duration="1796000" />
+      <workItem from="1573806443816" duration="5237000" />
     </task>
     <servers />
   </component>

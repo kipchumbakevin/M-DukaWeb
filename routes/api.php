@@ -37,6 +37,7 @@ Route::post("/confirmcode","ChangePersonalInfoController@confirmCode");//body(co
 //change username,first and last name
 Route::post("/changedetails","ChangePersonalInfoController@changedetails");//body(username,firstname,lastname)
 //change phone
+Route::post("/generatecode","ChangePersonalInfoController@generateChangePhoneCode");
 Route::post("/changephone","ChangePersonalInfoController@changephone");
 //change password
 Route::post("/changepassword","ChangePersonalInfoController@changePassword");
@@ -93,9 +94,11 @@ Route::get("/getqa","QuestionsController@getQA");
 Route::post("/sendmessage","MessagesController@insert");
 
 //buyingprice
-Route::get("/getbuyingprices","BuyingPriceController@getBuyingPrice");
+Route::post("/getbuyingprices","BuyingPriceController@getBuyingPrice");
 
 //get
 Route::get("/getcategories","NoAuthController@getCategories");
 //Route::get("/gettypes","TypeController@getTypes");
+
+Route::get('/secrets', 'SecretsController@show')->middleware('password.confirm');
 
