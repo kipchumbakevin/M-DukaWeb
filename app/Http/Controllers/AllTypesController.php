@@ -36,6 +36,7 @@ class AllTypesController extends Controller
                 'item_properties.company as company','purchases.size as size','purchases.quantity as quantity',
                 'purchases.selling_price as sellingprice',
                 'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName')->
+            where('purchases.quantity','>',0)->
             where('categories.name',$namecategory)
             ->where('all_types.name',$nametype)
             ->where('items.user_id',Auth::user()->id)

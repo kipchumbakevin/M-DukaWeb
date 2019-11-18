@@ -29,9 +29,9 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
-//codes
+//forgotpassword
 Route::post("/sendcode","NoAuthController@sendCode");//body(phone)
-Route::post("/confirmcode","ChangePersonalInfoController@confirmCode");//body(code)
+Route::post("/newpassword","NoAuthController@changePassword");//body(code,newpass)
 
 
 //change username,first and last name
@@ -100,5 +100,4 @@ Route::post("/getbuyingprices","BuyingPriceController@getBuyingPrice");
 Route::get("/getcategories","NoAuthController@getCategories");
 //Route::get("/gettypes","TypeController@getTypes");
 
-Route::get('/secrets', 'SecretsController@show')->middleware('password.confirm');
 

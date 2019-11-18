@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\Cast\Double;
 use phpseclib\Crypt\Random;
 
@@ -32,7 +33,7 @@ class ChangePersonalInfoController extends Controller
         $codes = rand(1000,9999);
         $user = User::find(Auth::user()->id);
         $phone = $user->phone;
-        if ($phone == $request['oldphone']){
+        if ( Hash::check($request['passcode'],$user->password) && $phone==$request['oldphone']){
             $user->update([
                 'code'=>$codes
             ]);
@@ -42,7 +43,7 @@ class ChangePersonalInfoController extends Controller
         }else{
             return response()->json([
                 'message' => 'Numbers do not match',
-            ],201);
+            ]);
         }
     }
 
@@ -69,10 +70,9 @@ class ChangePersonalInfoController extends Controller
     public function changePassword(Request $request)
     {
         $user = User::find(Auth::user()->id);
-        $phone = $user->phone;
-        if ($phone == $request['phone']) {
+        if (Hash::check($request['oldpass'],$user->password)) {
             $user->update([
-                'password' =>  bcrypt($request['newpass']),
+                'password' =>  Hash::make($request['newpass'])
             ]);
             return response()->json([
                 'message' => 'success',
@@ -83,13 +83,5 @@ class ChangePersonalInfoController extends Controller
             ]);
         }
     }
-    public function confirmCode(Request $request)
-    {
-        $user = User::find(Auth::user()->id);
-        if ($user->code == $request['code']){
-            return response()->json([
-                'message' => 'Confirmed',
-            ]);
-        }
-    }
+
 }

@@ -4,10 +4,8 @@
     <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BuyingPriceController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BuyingPriceController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -229,6 +227,9 @@
       <workItem from="1573714484473" duration="1394000" />
       <workItem from="1573725870707" duration="1796000" />
       <workItem from="1573806443816" duration="5237000" />
+      <workItem from="1573839493256" duration="4449000" />
+      <workItem from="1573888507934" duration="1886000" />
+      <workItem from="1573904528353" duration="462000" />
     </task>
     <servers />
   </component>

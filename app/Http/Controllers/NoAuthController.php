@@ -7,6 +7,7 @@ use App\Category;
 use App\ItemGroup;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class NoAuthController extends Controller
 {
@@ -34,12 +35,25 @@ class NoAuthController extends Controller
     public function sendCode(Request $request)
     {
         $code = rand(1000,9999);
-        $user = User::where('phone',$request['phone']);
+        $user = User::where('phone',$request['phone'])->first();
+            $user->update([
+                'code' => $code
+            ]);
+            return response()->json([
+                'message' => 'Code has been sent',
+            ], 201);
+
+    }
+
+    public function changePassword(Request $request)
+    {
+        $user = User::where('code',$request['code'])->first();
         $user->update([
-            'code'=>$code
-    ]);
+            'password'=>Hash::make($request['newpass']),
+			'code'=>null
+        ]);
         return response()->json([
-            'message' => 'Code has been sent',
+            'message' => 'Password changed',
         ],201);
     }
 }
