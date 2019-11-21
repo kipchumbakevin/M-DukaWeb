@@ -29,6 +29,10 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+//confirm signup code
+Route::post("/signupcode","NoAuthController@confirmSignUp");//body(phone)
+
+
 //forgotpassword
 Route::post("/sendcode","NoAuthController@sendCode");//body(phone)
 Route::post("/newpassword","NoAuthController@changePassword");//body(code,newpass)

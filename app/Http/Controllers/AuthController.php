@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use AfricasTalking\SDK\AfricasTalking;
 
 class AuthController extends Controller
 {
@@ -21,6 +23,7 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
+        $code = rand(1000,9999);
         $request->validate([
             'username' => 'required|string|unique:users',
             'location' => 'required|string',
@@ -34,12 +37,29 @@ class AuthController extends Controller
             'last_name'=>$request->last_name,
             'username' => $request->username,
             'phone' => $request->phone,
+            'code'=>$code,
             'location' => $request->location,
             'password' => Hash::make($request->password)
+
         ]);
-        $user->save();
+        $username   = "mduka.com";
+        $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
+        $AT         = new AfricasTalking($username, $apiKey);
+        $sms        = $AT->sms();
+        $recipients = $request->phone;
+        $message    = "Verification code ".$code;
+        try {
+            // Thats it, hit send and we'll take care of the rest
+            $result = $sms->send([
+                'to'      => $recipients,
+                'message' => $message,
+            ]);
+        } catch (Exception $e) {
+            echo "Error: ".$e->getMessage();
+        }
+		$user->save();
         return response()->json([
-            'message' => 'Successfully registered!'
+            'message' => $message
         ], 201);
     }
 

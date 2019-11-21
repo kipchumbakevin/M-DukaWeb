@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use AfricasTalking\SDK\AfricasTalking;
 use App\AllTypes;
 use App\Category;
 use App\ItemGroup;
 use App\User;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,6 +42,22 @@ class NoAuthController extends Controller
             $user->update([
                 'code' => $code
             ]);
+        $username   = "mduka.com";
+        $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
+        $AT         = new AfricasTalking($username, $apiKey);
+        $sms        = $AT->sms();
+        $recipients = $request->phone;
+        $message    = "Verification code ".$code;
+        try {
+            // Thats it, hit send and we'll take care of the rest
+            $result = $sms->send([
+                'to'      => $recipients,
+                'message' => $message,
+            ]);
+            print_r($result);
+        } catch (Exception $e) {
+            echo "Error: ".$e->getMessage();
+        }
             return response()->json([
                 'message' => 'Code has been sent',
             ], 201);
@@ -55,5 +74,31 @@ class NoAuthController extends Controller
         return response()->json([
             'message' => 'Password changed',
         ],201);
+    }
+    public function confirmSignUp(Request $request)
+    {
+        $user = User::where('phone',$request['phone'])->first();
+        if (Carbon::parse($user->created_at)->diffInMinutes(Carbon::now()) <5) {
+            if ($user->code == $request['code'] && $user->created_at){
+				$user->update([
+				     'code'=>null
+				]);
+                return response()->json([
+                    'message' => 'Sign up successful',
+                ],201);
+            }else{
+                return response()->json([
+                    'message' => 'Wrong code',
+                ],201);
+            }
+        }
+        return  response()->json([
+            'message' => 'Verification code has expired',
+        ],201);
+    }
+
+    public function resendCode(Request $request)
+    {
+
     }
 }

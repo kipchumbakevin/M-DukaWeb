@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\Cast\Double;
+use AfricasTalking\SDK\AfricasTalking;
 use phpseclib\Crypt\Random;
 
 class ChangePersonalInfoController extends Controller
@@ -37,6 +39,21 @@ class ChangePersonalInfoController extends Controller
             $user->update([
                 'code'=>$codes
             ]);
+            $username   = "mduka.com";
+            $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
+            $AT         = new AfricasTalking($username, $apiKey);
+            $sms        = $AT->sms();
+            $recipients = $request->oldphone;
+            $message    = "Verification code ".$codes;
+            try {
+                // Thats it, hit send and we'll take care of the rest
+                $result = $sms->send([
+                    'to'      => $recipients,
+                    'message' => $message,
+                ]);
+            } catch (Exception $e) {
+                echo "Error: ".$e->getMessage();
+            }
 			 return response()->json([
                 'message' => 'success',
             ],201);
