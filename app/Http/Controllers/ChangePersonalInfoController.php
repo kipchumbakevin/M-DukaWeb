@@ -23,10 +23,12 @@ class ChangePersonalInfoController extends Controller
         $user->update([
             'username'=>$request['username'],
             'first_name'=>$request['firstname'],
-            'last_name'=>$request['lastname']
+            'last_name'=>$request['lastname'],
+			'location'=>$request['location']
         ]);
         return response()->json([
             'message' => 'changed successfully',
+			'user'=>$user,
         ], 201);
     }
 

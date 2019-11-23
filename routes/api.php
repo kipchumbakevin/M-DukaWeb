@@ -29,8 +29,10 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+//generate signupcode
+Route::post("/signupcode","CodesController@signUpCode");
 //confirm signup code
-Route::post("/signupcode","NoAuthController@confirmSignUp");//body(phone)
+//Route::post("/signupcode","NoAuthController@confirmSignUp");//body(phone)
 
 
 //forgotpassword
@@ -50,6 +52,7 @@ Route::post("/changepassword","ChangePersonalInfoController@changePassword");
 Route::post("/addsales","SalesController@insert");//body(quantity,costprice,purchase_id)
 Route::post("/getmonthlysales","SalesController@getMonthlySales");//body(month,year)
 Route::post("/getprofitloss","SalesController@getTotalSummary");//body(month,year)
+Route::post("/deletesale","SalesController@deleteSale");//body(id)
 
 //months
 Route::post("/getmonths","PaymentsController@getMonths");//body(year)

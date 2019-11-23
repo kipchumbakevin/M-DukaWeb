@@ -60,19 +60,19 @@ class ItemController extends Controller
         $purchase->selling_price = $request->input('sellingprice');
         $purchase->total = $request->input('quantity') * $request->input('buyingprice');
         $purchase->save();
-//		$this->validate($request, [
-//
-//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//
-//        ]);
-//        $new_image = $request->file('image');
-//        $imagename = time() . '.' . $new_image->getClientOriginalExtension();
-//        $destinationPath = public_path('/images');
-//        $new_image->move($destinationPath, $imagename);
+		$this->validate($request, [
+
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+        $new_image = $request->file('image');
+        $imagename = time() . '.' . $new_image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $new_image->move($destinationPath, $imagename);
 
         $p_image = new PurchaseImage();
         $p_image->item_id = $new_item->id;
-        $p_image->imageurl = $request->input('image');
+        $p_image->imageurl = $imagename;
         $p_image->save();
 
         return response()->json([

@@ -88,5 +88,9 @@ $purchase->update(
 
     public function deleteSale(Request $request){
         $sale = Sales::find($request['id']);
+		$sale->delete();
+		return response()->json([
+            'message'=>'Deleted successfully',
+        ],201);
     }
 }

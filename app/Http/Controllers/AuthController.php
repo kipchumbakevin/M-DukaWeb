@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Code;
 use App\User;
 use Carbon\Carbon;
 use Exception;
@@ -23,7 +24,6 @@ class AuthController extends Controller
      */
     public function signup(Request $request)
     {
-        $code = rand(1000,9999);
         $request->validate([
             'username' => 'required|string|unique:users',
             'location' => 'required|string',
@@ -32,35 +32,28 @@ class AuthController extends Controller
             'phone'=>'required|string|unique:users',
             'password' => 'required|string|confirmed'
         ]);
-        $user = new User([
-            'first_name' => $request->first_name,
-            'last_name'=>$request->last_name,
-            'username' => $request->username,
-            'phone' => $request->phone,
-            'code'=>$code,
-            'location' => $request->location,
-            'password' => Hash::make($request->password)
+		 $output = preg_replace("/^0/", "+254", $request->phone);
+        $codes = Code::where('code',$request['code'])->first();
+        if ($codes->code == $request['code']) {
+            $user = new User([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $request->username,
+                'phone' => $output,
+                'location' => $request->location,
+                'password' => Hash::make($request->password)
 
-        ]);
-        $username   = "mduka.com";
-        $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
-        $AT         = new AfricasTalking($username, $apiKey);
-        $sms        = $AT->sms();
-        $recipients = $request->phone;
-        $message    = "Verification code ".$code;
-        try {
-            // Thats it, hit send and we'll take care of the rest
-            $result = $sms->send([
-                'to'      => $recipients,
-                'message' => $message,
             ]);
-        } catch (Exception $e) {
-            echo "Error: ".$e->getMessage();
+            $user->save();
+            $codes->delete();
+            return response()->json([
+                'message' => "Successfully registered"
+            ], 201);
+        }else{
+            return response()->json([
+                'message' => "Wrong code"
+            ], 201);
         }
-		$user->save();
-        return response()->json([
-            'message' => $message
-        ], 201);
     }
 
     /**
