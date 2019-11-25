@@ -27,9 +27,8 @@ class ChangePersonalInfoController extends Controller
 			'location'=>$request['location']
         ]);
         return response()->json([
-            'message' => 'changed successfully',
-			'user'=>$user,
-        ], 201);
+			     'user'=>$user,
+        ]);
     }
 
     public function generateChangePhoneCode(Request $request)

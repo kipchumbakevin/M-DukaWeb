@@ -24,4 +24,5 @@ protected $fillable=['quantity','buying_price','item_id','selling_price','purcha
         return Item::select('name')->where('id',$this->item_id)
             ->where('user_id',Auth::user()->id)->get();
     }
+
 }

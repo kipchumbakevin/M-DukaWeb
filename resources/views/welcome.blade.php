@@ -90,10 +90,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Contact</a>
-                    <a href="https://laracasts.com">Find Us</a>
-                    <a href="https://laravel-news.com">Products</a>
-                    <a href="https://blog.laravel.com">Terms of service</a>
+                    <a href="/contact">Contact Us</a>
+                    <a href="/home">Products</a>
+                    <a href="/terms">Terms of service</a>
                 </div>
                 <div class="foot">
                     &copy 2019. All rights reserved.

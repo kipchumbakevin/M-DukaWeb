@@ -65,8 +65,8 @@ class ItemController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
-        $new_image = $request->file('image');
-        $imagename = time() . '.' . $new_image->getClientOriginalExtension();
+        $new_image = $request->input('image');
+        $imagename = time() . '.' . rand(100000,999999);
         $destinationPath = public_path('/images');
         $new_image->move($destinationPath, $imagename);
 
@@ -125,7 +125,6 @@ class ItemController extends Controller
         $item = Item::find($request['item_id']);
         $itemproperties = ItemProperty::find($request['item_id']);
         $purchaseimage = PurchaseImage::find($request['item_id']);
-		$bp = BuyingPrice::find('item_id',$request['item_id']);
 //        $item = new Purchase();
 //        $item->item_id=$request->input('itemid');
 //        $item->quantity=$request->input('quantity');
@@ -133,7 +132,6 @@ class ItemController extends Controller
         $item->delete();
         $itemproperties->delete();
         $purchaseimage->delete();
-		$bp->delete();
 
         return response()->json([
             'message' => 'Deleted successfully',

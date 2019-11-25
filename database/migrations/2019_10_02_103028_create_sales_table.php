@@ -18,6 +18,8 @@ class CreateSalesTable extends Migration
             $table->integer('user_id');
             $table->integer('purchase_id');
             $table->string('name');
+            $table->string('color');
+            $table->string('size');
             $table->string('quantity');
             $table->string('buying_price');
             $table->string('unit_price');

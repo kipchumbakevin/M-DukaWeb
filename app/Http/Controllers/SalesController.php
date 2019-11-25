@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\ItemProperty;
 use App\Payments;
 use App\Purchase;
 use App\Sales;
@@ -55,22 +56,29 @@ class SalesController extends Controller
         return $expenses;
     }
 
-
 //    public function getSalesDetails(Request $request){
-//        $id = $request['id'];
+//        $user = Auth::user();
+//        $month = $request['month'];
+//        $yyy =$user->sales;
+//        $year = $request['year'];
 //        $sale = Sales::join('purchases','sales.purchase_id','=','purchases.id')
 //            ->join('items','purchases.item_id','=','items.id')
-//            ->select('sales.*','items.name as name')
-//            ->where('sales.id',$id)
+//            ->join('items','item_properties.item_id','=','items.id')
+//            ->select('sales.*','items.name as name','item_properties.color as color')
+//            ->where($yyy->createdAt($yyy->created_at->format('m'),$month))
+//            ->where($yyy->createdAt($yyy->created_at->format('Y'),$year))
 //            ->get();
 //        return $sale;
 //    }
     public function insert(Request $request){
         $userid = Auth::user()->id;
+        $items = ItemProperty::where('item_id',$request['item_id'])->first();
+        $pp = Purchase::where('item_id',$request['item_id'])->first();
         $purchase=  Purchase::find($request['purchase_id']);
-        $item = $purchase->items;
         $sale = new Sales();
         $sale->name=$purchase->items[0]->name;
+        $sale->color=$items->color;
+        $sale->size = $pp->size;
         $sale->user_id=$userid;
         $sale->purchase_id=$request['purchase_id'];
         $sale->unit_price=$request->input('costprice');

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
@@ -95,5 +96,13 @@ class Item extends Model
     {
         return PurchaseImage::select('imageurl')->where('item_id', $this->id)->get();
     }
-
+    public function getColorsAttribute()
+    {
+       $col = ItemProperty::select('color')->where('item_id',$this->id);
+       return $col;
+    }
+    public function getSizesAttribute()
+    {
+        return Purchase::select('size')->where('item_id',$this->id);
+    }
 }
