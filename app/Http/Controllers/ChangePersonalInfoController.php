@@ -88,13 +88,24 @@ class ChangePersonalInfoController extends Controller
     public function changePassword(Request $request)
     {
         $user = User::find(Auth::user()->id);
+		$tokenResult = $user->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me)
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
         if (Hash::check($request['oldpass'],$user->password)) {
             $user->update([
                 'password' =>  Hash::make($request['newpass'])
             ]);
             return response()->json([
-                'message' => 'success',
-            ],201);
+            'access_token' => $tokenResult->accessToken,
+            'user' => $user,
+            'message'=>"Password changed successfuly",
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse(
+                $tokenResult->token->expires_at
+            )->toDateTimeString()
+        ]);
         } else {
             return response()->json([
                 'message' => 'Invalid credentials',

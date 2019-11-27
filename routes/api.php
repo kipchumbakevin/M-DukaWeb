@@ -106,6 +106,6 @@ Route::post("/getbuyingprices","BuyingPriceController@getBuyingPrice");
 
 //get
 Route::get("/getcategories","NoAuthController@getCategories");
-//Route::get("/gettypes","TypeController@getTypes");
+Route::get("/images","PurchaseImagesController@images");
 
 

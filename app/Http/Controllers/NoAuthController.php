@@ -38,7 +38,8 @@ class NoAuthController extends Controller
     public function sendCode(Request $request)
     {
         $code = rand(1000,9999);
-        $user = User::where('phone',$request['phone'])->first();
+        $output = preg_replace("/^0/", "+254", $request->phone);
+        $user = User::where('phone',$output)->first();
             $user->update([
                 'code' => $code
             ]);
@@ -54,7 +55,6 @@ class NoAuthController extends Controller
                 'to'      => $recipients,
                 'message' => $message,
             ]);
-            print_r($result);
         } catch (Exception $e) {
             echo "Error: ".$e->getMessage();
         }
@@ -66,36 +66,48 @@ class NoAuthController extends Controller
 
     public function changePassword(Request $request)
     {
-        $user = User::where('code',$request['code'])->first();
-        $user->update([
+        $usera = User::where('code',$request['code'])->first();
+        $tokenResult = $usera->createToken('Personal Access Token');
+        $token = $tokenResult->token;
+        if ($request->remember_me)
+            $token->expires_at = Carbon::now()->addWeeks(1);
+        $token->save();
+        $usera->update([
             'password'=>Hash::make($request['newpass']),
 			'code'=>null
         ]);
+
         return response()->json([
-            'message' => 'Password changed',
-        ],201);
+            'access_token' => $tokenResult->accessToken,
+            'user' => $usera,
+            'message'=>"Password changed successfuly",
+            'token_type' => 'Bearer',
+            'expires_at' => Carbon::parse(
+                $tokenResult->token->expires_at
+            )->toDateTimeString()
+        ]);
     }
-    public function confirmSignUp(Request $request)
-    {
-        $user = User::where('phone',$request['phone'])->first();
-        if (Carbon::parse($user->created_at)->diffInMinutes(Carbon::now()) <5) {
-            if ($user->code == $request['code'] && $user->created_at){
-				$user->update([
-				     'code'=>null
-				]);
-                return response()->json([
-                    'message' => 'Sign up successful',
-                ],201);
-            }else{
-                return response()->json([
-                    'message' => 'Wrong code',
-                ],201);
-            }
-        }
-        return  response()->json([
-            'message' => 'Verification code has expired',
-        ],201);
-    }
+//    public function confirmSignUp(Request $request)
+//    {
+//        $user = User::where('phone',$request['phone'])->first();
+//        if (Carbon::parse($user->created_at)->diffInMinutes(Carbon::now()) <5) {
+//            if ($user->code == $request['code'] && $user->created_at){
+//				$user->update([
+//				     'code'=>null
+//				]);
+//                return response()->json([
+//                    'message' => 'Sign up successful',
+//                ],201);
+//            }else{
+//                return response()->json([
+//                    'message' => 'Wrong code',
+//                ],201);
+//            }
+//        }
+//        return  response()->json([
+//            'message' => 'Verification code has expired',
+//        ],201);
+//    }
 
     public function resendCode(Request $request)
     {

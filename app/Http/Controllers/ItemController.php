@@ -65,16 +65,26 @@ class ItemController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
-        $new_image = $request->input('image');
-        $imagename = time() . '.' . rand(100000,999999);
-        $destinationPath = public_path('/images');
-        $new_image->move($destinationPath, $imagename);
-
+        $image = $request->input('image');
+            $imagename = "blahblah";
+            $image->move(public_path().'/images/', $imagename);
+      //  $image2 = $request->file('image2');
+      //  $imagename2 = $image2->getClientOriginalName();
+      //  $image2->move(public_path().'/images/', $imagename2);
+//        $im = array();
+//        foreach ($request->file('image') as $images){
+//            $name=$images->getClientOriginalName();
+//            $images->move(public_path().'/images/'.$name);
+//            $im = $name;
+//        }
         $p_image = new PurchaseImage();
         $p_image->item_id = $new_item->id;
-        $p_image->imageurl = $imagename;
+        $p_image->imageurl =$imagename;
         $p_image->save();
-
+       // $p_image2 = new PurchaseImage();
+       // $p_image2->item_id = $new_item->id;
+       // $p_image2->imageurl =$imagename2;
+       // $p_image2->save();
         return response()->json([
             'message' => 'Added successfully',
         ], 201);
@@ -121,17 +131,11 @@ class ItemController extends Controller
     }
     public function deleteItem(Request $request)
     {
-        $purchase = Purchase::find($request['item_id']);
-        $item = Item::find($request['item_id']);
-        $itemproperties = ItemProperty::find($request['item_id']);
-        $purchaseimage = PurchaseImage::find($request['item_id']);
-//        $item = new Purchase();
-//        $item->item_id=$request->input('itemid');
-//        $item->quantity=$request->input('quantity');
-        $purchase->delete();
-        $item->delete();
-        $itemproperties->delete();
-        $purchaseimage->delete();
+        $purchase = Purchase::where('item_id',$request['item_id'])->delete();
+        $item = Item::where('id',$request['item_id'])->delete();
+        $itemproperties = ItemProperty::where('item_id',$request['item_id'])->delete();
+        $purchaseimage = PurchaseImage::where('item_id',$request['item_id'])->delete();
+        $bb = BuyingPrice::where('item_id',$request['item_id'])->delete();
 
         return response()->json([
             'message' => 'Deleted successfully',
