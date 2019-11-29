@@ -65,8 +65,8 @@ class ItemController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
-        $image = $request->input('image');
-            $imagename = "blahblah";
+        $image = $request->file('image');
+            $imagename = $image->getClientOriginalName();
             $image->move(public_path().'/images/', $imagename);
       //  $image2 = $request->file('image2');
       //  $imagename2 = $image2->getClientOriginalName();

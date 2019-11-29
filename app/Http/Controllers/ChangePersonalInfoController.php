@@ -35,8 +35,9 @@ class ChangePersonalInfoController extends Controller
     {
         $codes = rand(1000,9999);
         $user = User::find(Auth::user()->id);
+		$output = preg_replace("/^0/", "+254", $request->oldphone);
         $phone = $user->phone;
-        if ( Hash::check($request['passcode'],$user->password) && $phone==$request['oldphone']){
+        if ( Hash::check($request['passcode'],$user->password) && $phone==$output){
             $user->update([
                 'code'=>$codes
             ]);
@@ -44,7 +45,7 @@ class ChangePersonalInfoController extends Controller
             $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
             $AT         = new AfricasTalking($username, $apiKey);
             $sms        = $AT->sms();
-            $recipients = $request->oldphone;
+            $recipients = $output;
             $message    = "Verification code ".$codes;
             try {
                 // Thats it, hit send and we'll take care of the rest
@@ -69,10 +70,11 @@ class ChangePersonalInfoController extends Controller
     {
       //  Hash::check($request['pass'],$user->password)
         $user = User::find(Auth::user()->id);
+		$output = preg_replace("/^0/", "+254", $request->newphone);
         $code= $user->code;
         if ($code==$request['code']) {
             $user->update([
-                'phone' => $request['newphone'],
+                'phone' => $output,
 				'code'=>null
             ]);
             return response()->json([

@@ -11,6 +11,7 @@ class CodesController extends Controller
 {
     public function signUpCode(Request $request)
     {
+		$signature = $request->appSignature;
         $output = preg_replace("/^0/", "+254", $request->phone);
         $signupcode = rand(100000,999999);
         $codes = new Code();
@@ -20,7 +21,7 @@ class CodesController extends Controller
         $AT         = new AfricasTalking($username, $apiKey);
         $sms        = $AT->sms();
         $recipients = $output;
-        $message    = "Verification code ".$signupcode;
+        $message    = "<#> Verification code:".$signupcode.": ".$signature;
         try {
             // Thats it, hit send and we'll take care of the rest
             $result = $sms->send([
