@@ -16,11 +16,9 @@ class MessagesController extends Controller
     public function insert(Request $request){
         $userid = Auth::user()->id;
         $message = new Message();
-        $imagee = new MessageImage();
         $message->user_id = $userid;
         $message->message=$request->input('message');
         $message->save();
-
         $new_message = Message::orderby('created_at', 'desc')->first();
         $this->validate($request, [
 
@@ -28,10 +26,11 @@ class MessagesController extends Controller
 
         ]);
         $image = $request->file('image');
-        $imagename = $image->getClientOriginalName();
-        $image->move(public_path().'/imagesmessages/', $imagename);
-        $image->message_id = $new_message->id;
-        $image->imageuri=$imagename;
+        $imagename = time().'.'.$image->getClientOriginalExtension();
+        $image->move(public_path().'/images/', $imagename);
+        $imagee = new MessageImage();
+        $imagee->message_id = $new_message->id;
+        $imagee->imageuri=$imagename;
         $imagee->save();
 
 		return response()->json([

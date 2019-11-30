@@ -47,6 +47,7 @@ class AuthController extends Controller
             $user->save();
             $codes->delete();
             return response()->json([
+                'user'=>$user,
                 'message' => "Successfully registered"
             ], 201);
         }else{

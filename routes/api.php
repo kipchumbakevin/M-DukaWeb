@@ -29,6 +29,8 @@ Route::group([
         Route::get('user', 'AuthController@user');
     });
 });
+//check if user exists
+Route::post("/checkifexist","NoAuthController@checkIfUserExists");//body(phone,username)
 //generate signupcode
 Route::post("/signupcode","CodesController@signUpCode");
 //confirm signup code
@@ -45,6 +47,7 @@ Route::post("/changedetails","ChangePersonalInfoController@changedetails");//bod
 //change phone
 Route::post("/generatecode","ChangePersonalInfoController@generateChangePhoneCode");
 Route::post("/changephone","ChangePersonalInfoController@changephone");
+Route::post("/checkphone","ChangePersonalInfoController@checkNumberIfCorrect");//body(phone,password)
 //change password
 Route::post("/changepassword","ChangePersonalInfoController@changePassword");
 
@@ -106,6 +109,7 @@ Route::post("/getbuyingprices","BuyingPriceController@getBuyingPrice");
 
 //get
 Route::get("/getcategories","NoAuthController@getCategories");
-Route::post("/images","PurchaseImagesController@images");
+//images
+Route::post("/images","ItemImagesController@images");
 
 

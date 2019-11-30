@@ -6,6 +6,7 @@ use App\AllTypes;
 use App\Item;
 use App\ItemGroup;
 use App\Purchase;
+use App\PurchaseImage;
 use App\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,6 @@ class AllTypesController extends Controller
     }
     public function get_types_item(Request $request)
     {
-
         $nametype = $request['nametype'];
         $namecategory = $request['namecategory'];
         $itemdata = Item::join('item_properties','items.id','=','item_properties.item_id')

@@ -3,12 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AllTypesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ChangePersonalInfoController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CodesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CodesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ItemController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MessagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MessagesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/NoAuthController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseImagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseImagesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Item.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Item.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_11_22_075042_create_codes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_11_22_075042_create_codes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/imagesmessages/IMG-20190726-WA0164.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/imagesmessages/jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/publicimages/messages/IMG-20190726-WA0164.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -255,6 +262,14 @@
       <workItem from="1574840398298" duration="3581000" />
       <workItem from="1574952098040" duration="5524000" />
       <workItem from="1575033640653" duration="1577000" />
+      <workItem from="1575093562777" duration="5785000" />
+      <workItem from="1575102029699" duration="1223000" />
+      <workItem from="1575104673381" duration="2546000" />
+      <workItem from="1575110413124" duration="123000" />
+      <workItem from="1575115823852" duration="2394000" />
+      <workItem from="1575122773198" duration="467000" />
+      <workItem from="1575125426414" duration="854000" />
+      <workItem from="1575130938041" duration="339000" />
     </task>
     <servers />
   </component>

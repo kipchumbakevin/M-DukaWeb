@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use AfricasTalking\SDK\AfricasTalking;
 use App\AllTypes;
 use App\Category;
+use App\Code;
 use App\ItemGroup;
 use App\User;
 use Carbon\Carbon;
@@ -37,36 +38,54 @@ class NoAuthController extends Controller
 
     public function sendCode(Request $request)
     {
-        $code = rand(1000,9999);
         $output = preg_replace("/^0/", "+254", $request->phone);
         $user = User::where('phone',$output)->first();
-            $user->update([
-                'code' => $code
-            ]);
-        $username   = "mduka.com";
-        $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
-        $AT         = new AfricasTalking($username, $apiKey);
-        $sms        = $AT->sms();
-        $recipients = $request->phone;
-        $message    = "Verification code ".$code;
-        try {
-            // Thats it, hit send and we'll take care of the rest
-            $result = $sms->send([
-                'to'      => $recipients,
-                'message' => $message,
-            ]);
-        } catch (Exception $e) {
-            echo "Error: ".$e->getMessage();
-        }
+        if ($user->phone==$output) {
             return response()->json([
-                'message' => 'Code has been sent',
+                'message' => 'Correct',
             ], 201);
+        }else{
+            return null;
+        }
+
+    }
+    public function checkIfUserExists(Request $request)
+    {
+        $numbers = [];
+        $all = [];
+        $output = preg_replace("/^0/", "+254", $request->phone);
+        $user = User::all('phone','username');
+        $usnm = $request['username'];
+        foreach ($user as $users){
+            array_push($numbers,$users->phone);
+            array_push($numbers,$users->username);
+        }
+        if (in_array($output,$numbers) && in_array($usnm,$numbers)){
+            return response()->json([
+                'message' => 'The username and phone number have already been taken',
+            ]);
+        }
+        if (in_array($output,$numbers)){
+            return response()->json([
+                    'message' => 'The phone number has already been taken',
+                ]);
+        }if (in_array($usnm,$numbers)){
+            return response()->json([
+                'message' => 'The username has already been taken',
+            ]);
+        }else{
+        return response()->json([
+            'message' => 'Confirm code sent',
+        ],200);
+    }
 
     }
 
     public function changePassword(Request $request)
     {
-        $usera = User::where('code',$request['code'])->first();
+		$output = preg_replace("/^0/", "+254", $request->phone);
+        $usera = User::where('phone',$output)->first();
+        $codestable = Code::where('code',$request['code'])->first();
         $tokenResult = $usera->createToken('Personal Access Token');
         $token = $tokenResult->token;
         if ($request->remember_me)
@@ -74,8 +93,8 @@ class NoAuthController extends Controller
         $token->save();
         $usera->update([
             'password'=>Hash::make($request['newpass']),
-			'code'=>null
         ]);
+        $codestable->delete();
 
         return response()->json([
             'access_token' => $tokenResult->accessToken,

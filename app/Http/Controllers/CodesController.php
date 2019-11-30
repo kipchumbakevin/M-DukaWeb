@@ -16,6 +16,7 @@ class CodesController extends Controller
         $signupcode = rand(100000,999999);
         $codes = new Code();
         $codes->code=$signupcode;
+		$codes->phone=$output;
         $username   = "mduka.com";
         $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
         $AT         = new AfricasTalking($username, $apiKey);

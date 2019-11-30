@@ -77,7 +77,7 @@ class Item extends Model
 
     public function getImagesAttribute()
     {
-        return PurchaseImage::where('item_id',$this->id)->get();
+        return ItemImage::where('item_id',$this->id)->get();
     }
     public function getImageUrlAttribute()
     {

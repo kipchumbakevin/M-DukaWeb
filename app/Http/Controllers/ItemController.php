@@ -7,6 +7,7 @@ use App\BuyingPrice;
 use App\Category;
 use App\Item;
 use App\ItemGroup;
+use App\ItemImage;
 use App\ItemProperty;
 use App\Payments;
 use App\Purchase;
@@ -66,25 +67,26 @@ class ItemController extends Controller
 
         ]);
         $image = $request->file('image');
-            $imagename = $image->getClientOriginalName();
+            $imagename =rand(100000,999999).time().'.'. $image->getClientOriginalExtension();
             $image->move(public_path().'/images/', $imagename);
-      //  $image2 = $request->file('image2');
-      //  $imagename2 = $image2->getClientOriginalName();
-      //  $image2->move(public_path().'/images/', $imagename2);
-//        $im = array();
-//        foreach ($request->file('image') as $images){
-//            $name=$images->getClientOriginalName();
-//            $images->move(public_path().'/images/'.$name);
-//            $im = $name;
-//        }
+        $image2 = $request->file('image2');
+        $imagename2 = rand(100000,999999).time().'.'.$image2->getClientOriginalExtension();
+        $image2->move(public_path().'/images/', $imagename2);
+
         $p_image = new PurchaseImage();
         $p_image->item_id = $new_item->id;
         $p_image->imageurl =$imagename;
         $p_image->save();
-       // $p_image2 = new PurchaseImage();
-       // $p_image2->item_id = $new_item->id;
-       // $p_image2->imageurl =$imagename2;
-       // $p_image2->save();
+
+        $item_image = new ItemImage();
+        $item_image->item_id = $new_item->id;
+        $item_image->imageurl =$imagename;
+        $item_image->save();
+
+        $item_image2 = new ItemImage();
+        $item_image2->item_id = $new_item->id;
+        $item_image2->imageurl =$imagename2;
+        $item_image2->save();
         return response()->json([
             'message' => 'Added successfully',
         ], 201);

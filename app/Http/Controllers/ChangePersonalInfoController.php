@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Code;
 use App\User;
 use Carbon\Carbon;
 use Exception;
@@ -31,22 +32,53 @@ class ChangePersonalInfoController extends Controller
         ]);
     }
 
+    public function checkNumberIfCorrect(Request $request)
+    {
+        $phonenumber =preg_replace("/^0/", "+254", $request->oldphone);
+        $users = User::all('phone');
+        $phonNum = [];
+        foreach ($users as $user){
+            array_push($phonNum,$user->phone);
+        }
+        if (in_array($phonenumber,$phonNum)) {
+            $thisuser = User::where('phone', $phonenumber)->first();
+        }
+        if (!in_array($phonenumber,$phonNum)){
+                return response()->json([
+                    'message' => 'The phone number does not exist',
+                ]);
+        }
+		if(!Hash::check($request['pas'],$thisuser->password)){
+			 return response()->json([
+                'message' => 'Wrong password',
+            ]);
+		}
+		else{
+            return response()->json([
+                'message' => 'Verification code will be sent',
+            ],201);
+        }
+
+
+    }
     public function generateChangePhoneCode(Request $request)
     {
-        $codes = rand(1000,9999);
+		$signature = $request->appSignature;
+        $codetable = new Code();
+        $codes = rand(100000,999999);
         $user = User::find(Auth::user()->id);
 		$output = preg_replace("/^0/", "+254", $request->oldphone);
         $phone = $user->phone;
-        if ( Hash::check($request['passcode'],$user->password) && $phone==$output){
-            $user->update([
-                'code'=>$codes
-            ]);
+        if ($phone==$output){
+            $codetable->code=$codes;
+            $codetable->phone=$output;
+			$codetable->save();
             $username   = "mduka.com";
             $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
             $AT         = new AfricasTalking($username, $apiKey);
             $sms        = $AT->sms();
             $recipients = $output;
-            $message    = "Verification code ".$codes;
+            $message    = "<#> Verification code:".$codes.": ".$signature;
             try {
                 // Thats it, hit send and we'll take care of the rest
                 $result = $sms->send([
@@ -68,22 +100,26 @@ class ChangePersonalInfoController extends Controller
 
     public function changePhone(Request $request)
     {
-      //  Hash::check($request['pass'],$user->password)
+        $code= $request->code;
+        $codess = Code::where('code',$code)->first();
+        $codees= $codess->code;
+        $ph = $codess->phone;
         $user = User::find(Auth::user()->id);
 		$output = preg_replace("/^0/", "+254", $request->newphone);
-        $code= $user->code;
-        if ($code==$request['code']) {
+        $old = preg_replace("/^0/", "+254", $request->oldphone);
+        if ($ph==$old && $codees==$code ) {
             $user->update([
-                'phone' => $output,
-				'code'=>null
+                'phone' => $output
             ]);
+            $codess->delete();
             return response()->json([
                 'message' => 'success',
             ],201);
         }else{
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ]);
+                return response()->json([
+                    'message' => 'Invalid code',
+                ]);
+
         }
     }
 

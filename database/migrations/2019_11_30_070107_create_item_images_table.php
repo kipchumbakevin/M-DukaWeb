@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCodesTable extends Migration
+class CreateItemImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('codes', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('code')->unique();
-            $table->string('phone');
+        Schema::create('item_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('item_id');
+            $table->string('imageurl');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('codes');
+        Schema::dropIfExists('item_images');
     }
 }
