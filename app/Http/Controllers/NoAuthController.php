@@ -75,8 +75,8 @@ class NoAuthController extends Controller
             ]);
         }else{
         return response()->json([
-            'message' => 'Confirm code sent',
-        ],200);
+            'message' => 'Your verification code has been sent',
+        ],201);
     }
 
     }
