@@ -20,34 +20,61 @@ class ChangePersonalInfoController extends Controller
         $this->middleware('auth:api');
     }
     public function changedetails(Request $request){
-        $user = User::find(Auth::user()->id);
-        $user->update([
-            'username'=>$request['username'],
-            'first_name'=>$request['firstname'],
-            'last_name'=>$request['lastname'],
-			'location'=>$request['location']
-        ]);
-        return response()->json([
-			     'user'=>$user,
-        ]);
+        $requestedusername = $request['username'];
+        $user = User::where('id',Auth::user()->id)->first();
+        $users = User::all();
+        $usernames = [];
+        foreach ($users as $one){
+            array_push($usernames,$one->username);
+        }
+        if (in_array($requestedusername,$usernames) && $user->username!=$requestedusername){
+            return response()->json([
+                'message'=>"The username has already been taken",
+            ]);
+        }else {
+            $user->update([
+                'username' => $request['username'],
+                'first_name' => $request['firstname'],
+                'last_name' => $request['lastname'],
+                'location' => $request['location']
+            ]);
+            return response()->json([
+                'user' => $user,
+            ]);
+        }
     }
 
     public function checkNumberIfCorrect(Request $request)
     {
         $phonenumber =preg_replace("/^0/", "+254", $request->oldphone);
-        $users = User::all('phone');
+        $users = User::all();
+        $newPhon = preg_replace("/^0/", "+254", $request->newphone);
         $phonNum = [];
+        $userrs=User::where('id',Auth::user()->id)->first();
         foreach ($users as $user){
             array_push($phonNum,$user->phone);
         }
-        if (in_array($phonenumber,$phonNum)) {
+        if (in_array($phonenumber,$phonNum) && $userrs->phone==$phonenumber) {
             $thisuser = User::where('phone', $phonenumber)->first();
-        }
-        if (!in_array($phonenumber,$phonNum)){
-                return response()->json([
-                    'message' => 'The phone number does not exist',
-                ]);
-        }
+        } if (!in_array($phonenumber,$phonNum)){
+        return response()->json([
+            'message' => 'The old phone number does not exist',
+        ]);
+    }if (in_array($phonenumber,$phonNum) && $userrs->phone!=$phonenumber){
+        return response()->json([
+            'message' => 'The old phone number is not registered to you',
+        ]);
+    }
+        if (in_array($newPhon,$phonNum)&&$userrs->phone==$newPhon){
+            return response()->json([
+                'message' => 'No change was detected',
+            ]);
+        }if (in_array($newPhon,$phonNum)&& $userrs->phone!=$newPhon){
+        return response()->json([
+            'message' => 'The phone number has already been taken',
+        ]);
+    }
+
 		if(!Hash::check($request['pas'],$thisuser->password)){
 			 return response()->json([
                 'message' => 'Wrong password',
@@ -68,6 +95,7 @@ class ChangePersonalInfoController extends Controller
         $codes = rand(100000,999999);
         $user = User::find(Auth::user()->id);
 		$output = preg_replace("/^0/", "+254", $request->oldphone);
+		$newnew = preg_replace("/^0/", "+254", $request->newphone);
         $phone = $user->phone;
         if ($phone==$output){
             $codetable->code=$codes;
@@ -77,7 +105,7 @@ class ChangePersonalInfoController extends Controller
             $apiKey     = "04264f63d8b96a3880887e8e40499d6b05bde13cb2454ced59a369500a5a686e";
             $AT         = new AfricasTalking($username, $apiKey);
             $sms        = $AT->sms();
-            $recipients = $output;
+            $recipients = $newnew;
             $message    = "<#> Verification code:".$codes.": ".$signature;
             try {
                 // Thats it, hit send and we'll take care of the rest
@@ -143,7 +171,7 @@ class ChangePersonalInfoController extends Controller
             'expires_at' => Carbon::parse(
                 $tokenResult->token->expires_at
             )->toDateTimeString()
-        ]);
+        ],201);
         } else {
             return response()->json([
                 'message' => 'Invalid credentials',

@@ -119,16 +119,30 @@ class ItemController extends Controller
     public function newPurchase(Request $request){
         $purchase = Purchase::find($request['item_id']);
         $bp = new BuyingPrice();
-        $purchase->update([
-            'quantity'=>($purchase->quantity + $request['quantity'])
-        ]);
-		$purchase->save();
-        $bp->item_id=$request->input('item_id');
-        $bp->amount=$request->input('buyingp');
-        $bp->save();
-		return response()->json([
-            'message' => 'edited successfully',
-        ], 201);
+        $bpall = BuyingPrice::all()->where('item_id',$request['item_id']);
+        $bparray = [];
+        foreach ($bpall as $bpa){
+            array_push($bparray,$bpa->amount);
+        }
+        if (!in_array($request['buyingp'],$bparray)) {
+            $purchase->update([
+                'quantity' => ($purchase->quantity + $request['quantity'])
+            ]);
+            $purchase->save();
+            $bp->item_id = $request->input('item_id');
+            $bp->amount = $request->input('buyingp');
+            $bp->save();
+            return response()->json([
+                'message' => 'edited successfully',
+            ], 201);
+        }else{
+            $purchase->update([
+                'quantity' => ($purchase->quantity + $request['quantity'])
+            ]);
+            return response()->json([
+                'message' => 'edited successfully',
+            ], 201);
+        }
 
     }
     public function deleteItem(Request $request)

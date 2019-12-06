@@ -56,13 +56,6 @@ class Item extends Model
     {
         return ItemGroup::find($this->item_group_id);
     }
-
-    public function getTypeObjectAttribute()
-    {
-        $type = Type::find($this->type_id);
-        return $type;
-    }
-
     public function getPropertyAttribute()
     {
         $property = ItemProperty::where('item_id', $this->id)->first();
@@ -108,5 +101,20 @@ class Item extends Model
     public function getSizesAttribute()
     {
         return Purchase::select('size')->where('item_id',$this->id);
+    }
+    //testing
+    public function getPropertiesAttribute()
+    {
+        return ItemProperty::all()->where('item_id',$this->id);
+    }
+
+    public function getPurchasesAttribute()
+    {
+        return Purchase::all()->where('item_id',$this->id);
+    }
+
+    public function getPurchaseimagesAttribute()
+    {
+        return PurchaseImage::all()->where('item_id',$this->id);
     }
 }

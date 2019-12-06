@@ -49,7 +49,7 @@ class PaymentsController extends Controller
         return $data;
     }
     public function getMonths(Request $request){
-        $payments = Payments::all()->where('user_id',Auth::user()->id);;
+        $payments = Payments::all()->where('user_id',Auth::user()->id);
         $months = [];
         foreach ($payments as $payment){
             $month = $payment->createdAt($payment->created_at->format('m'));
