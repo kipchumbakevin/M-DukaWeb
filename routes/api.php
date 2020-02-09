@@ -112,4 +112,10 @@ Route::get("/getcategories","NoAuthController@getCategories");
 //images
 Route::post("/images","ItemImagesController@images");
 
+//shoppinglist
+Route::post("/addshoppinglist","ShoppingListController@insert");
+Route::post("/getshoppinglist","ShoppingListController@fetchShoppingList");
+Route::post("/deletefromshoppinglist","ShoppingListController@deleteFromList");
+
+
 

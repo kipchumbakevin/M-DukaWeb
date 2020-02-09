@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->integer('type_id');
             $table->integer('item_group_id');
             $table->string('name');
+            $table->boolean('shopping_list');
             $table->timestamps();
         });
     }
