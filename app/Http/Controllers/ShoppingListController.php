@@ -35,15 +35,20 @@ class ShoppingListController extends Controller
             ->select('items.*','item_properties.color as color','item_properties.design as design',
                 'item_properties.company as company','purchases.size as size','purchases.quantity as quantity',
                 'purchases.selling_price as sellingprice',
-                'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName','shopping_lists.quantity as shoppingQuantity')->
+                'purchase_images.imageurl as image','purchases.id as purchaseId','all_types.name as typeName','shopping_lists.id as shoppingId','shopping_lists.quantity as shoppingQuantity')->
             where('categories.name',$namecategory)
             ->where('items.user_id',Auth::user()->id)
             ->get();
         return $itemdata ;
     }
     public function deleteFromList(Request $request){
-        $shop = ShoppingList::where('id',$request['item_id'])->delete();
+	    //dd(ShoppingList::where('id',$request['id'])->first());
+        $shop = ShoppingList::where('id',$request['id'])->first();
+	    $shop->delete();
+		  return response()->json([
+            'message' => 'Deleted successfully',
+        ], 201);
     }
-	
-	   
+
+
 }

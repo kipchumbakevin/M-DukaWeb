@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_02_102917_create_items_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GivenStockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GivenStockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ObscoleteStockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ObscoleteStockController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ShoppingListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ShoppingListController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -265,6 +267,8 @@
       <workItem from="1575305983974" duration="865000" />
       <workItem from="1581087758846" duration="1174000" />
       <workItem from="1581155185050" duration="2561000" />
+      <workItem from="1581338619255" duration="979000" />
+      <workItem from="1581425653310" duration="995000" />
     </task>
     <servers />
   </component>

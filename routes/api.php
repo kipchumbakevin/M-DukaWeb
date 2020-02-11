@@ -116,6 +116,15 @@ Route::post("/images","ItemImagesController@images");
 Route::post("/addshoppinglist","ShoppingListController@insert");
 Route::post("/getshoppinglist","ShoppingListController@fetchShoppingList");
 Route::post("/deletefromshoppinglist","ShoppingListController@deleteFromList");
+//obscoletestock
+Route::post("/addtoobscolete","ObscoleteStockController@insert");
+Route::post("/getobscoletelist","ObscoleteStockController@fetchObscolete");
+Route::post("/deletefromobscolete","ObscoleteStockController@ deleteObscolete");
+//givenstock
+Route::post("/addtogiven","GivenStockController@insert");
+Route::post("/getgivenlist","GivenStockController@fetchGiven");
+Route::post("/deletefromgiven","GivenStockController@ deleteFromGiven");
+
 
 
 
