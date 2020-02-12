@@ -14,14 +14,33 @@ class ObscoleteStockController extends Controller
         $this->middleware('auth:api');
     }
     public function insert(Request $request){
-        $obsc = new ObscoleteStock();
-        $obsc->item_id = $request->input('item_id');
-        $obsc->quantity=$request->input('quantity');
-        $obsc->save();
-        return response()->json([
-            'message'=>'Added successfully',
-            'error'=>false
-        ],201);
+        $id = $request->input('item_id');
+        $q = $request->input('quantity');
+        $ob = [];
+        $obsall = ObscoleteStock::all();
+        foreach ($obsall as $obb){
+            array_push($ob,$obb->item_id);
+        }
+        if (in_array($id,$ob)){
+            $obscolete = ObscoleteStock::where('item_id',$id)->first();
+            $obscolete->update(
+                ['quantity'=>$obscolete->quantity + $q]
+            );
+            return response()->json([
+                'message'=>'Added successfully',
+                'error'=>false
+            ],201);
+        }
+        else{
+            $obsc = new ObscoleteStock();
+            $obsc->item_id = $id;
+            $obsc->quantity= $q;
+            $obsc->save();
+            return response()->json([
+                'message'=>'Added successfully',
+                'error'=>false
+            ],201);
+        }
     }
     public function fetchObscolete(Request $request){
         $namecategory = $request['namecategory'];

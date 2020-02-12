@@ -3,10 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="a374b682-ca2e-4391-bba4-694a8088f5d1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/GivenStock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/GivenStock.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GivenStockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GivenStockController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ObscoleteStockController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ObscoleteStockController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ShoppingListController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ShoppingListController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ObscoleteStock.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ObscoleteStock.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/ShoppingList.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/ShoppingList.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -269,6 +271,7 @@
       <workItem from="1581155185050" duration="2561000" />
       <workItem from="1581338619255" duration="979000" />
       <workItem from="1581425653310" duration="995000" />
+      <workItem from="1581504797209" duration="5037000" />
     </task>
     <servers />
   </component>

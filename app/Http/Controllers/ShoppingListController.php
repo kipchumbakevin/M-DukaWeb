@@ -14,14 +14,33 @@ class ShoppingListController extends Controller
         $this->middleware('auth:api');
     }
     public function insert(Request $request){
+	    $id = $request->input('item_id');
+	    $q = $request->input('quantity');
+	    $sa = [];
+	    $sh = ShoppingList::all();
         $shop = new ShoppingList();
-        $shop->item_id = $request->input('item_id');
-        $shop->quantity=$request->input('quantity');
-        $shop->save();
-		 return response()->json([
-            'message'=>'Expense added successfully',
-            'error'=>false
-        ],201);
+        foreach ($sh as $ss){
+            array_push($sa,$ss->item_id);
+        }
+        if (in_array($id,$sa)){
+            $ssh = ShoppingList::where('item_id',$id)->first();
+            $ssh->update(
+              ['quantity'=>$ssh->quantity + $q]
+            );
+            return response()->json([
+                'message'=>'Added successfully',
+                'error'=>false
+            ],201);
+        }
+        else{
+            $shop->item_id = $id;
+            $shop->quantity=$q;
+            $shop->save();
+            return response()->json([
+                'message'=>'Added successfully',
+                'error'=>false
+            ],201);
+        }
     }
     public function fetchShoppingList(Request $request){
         $namecategory = $request['namecategory'];

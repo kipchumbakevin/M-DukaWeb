@@ -15,13 +15,30 @@ class GivenStockController extends Controller
     }
     public function insert(Request $request){
         $give = new GivenStock();
-        $give->item_id = $request->input('item_id');
-        $give->quantity=$request->input('quantity');
-        $give->save();
-        return response()->json([
-            'message'=>'Expense added successfully',
-            'error'=>false
-        ],201);
+        $id = $request->input('item_id');
+        $q =$request->input('quantity');
+        $ga = [];
+        $gall = GivenStock::all();
+        foreach ($gall as $gi){
+            array_push($ga,$gi->item_id);
+        }
+        if (in_array($id,$ga)){
+            $given = GivenStock::where('item_id',$id)->first();
+            $given->update( ['quantity'=>($given->quantity)+$q]);
+            return response()->json([
+                'message'=>'Added successfully',
+            ],201);
+        }
+        else{
+            $give->item_id = $id;
+            $give->quantity=$q;
+            $give->save();
+            return response()->json([
+                'message'=>'Added successfully',
+                'error'=>false
+            ],201);
+        }
+
     }
     public function fetchGiven(Request $request){
         $namecategory = $request['namecategory'];

@@ -119,11 +119,11 @@ Route::post("/deletefromshoppinglist","ShoppingListController@deleteFromList");
 //obscoletestock
 Route::post("/addtoobscolete","ObscoleteStockController@insert");
 Route::post("/getobscoletelist","ObscoleteStockController@fetchObscolete");
-Route::post("/deletefromobscolete","ObscoleteStockController@ deleteObscolete");
+Route::post("/deletefromobscolete","ObscoleteStockController@deleteObscolete");
 //givenstock
 Route::post("/addtogiven","GivenStockController@insert");
 Route::post("/getgivenlist","GivenStockController@fetchGiven");
-Route::post("/deletefromgiven","GivenStockController@ deleteFromGiven");
+Route::post("/deletefromgiven","GivenStockController@deleteFromGiven");
 
 
 
