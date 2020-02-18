@@ -72,5 +72,8 @@ class GivenStockController extends Controller
         $gg->update([
             'quantity'=>$request['quantity']
         ]);
+		return response()->json([
+            'message' => 'Edited successfully',
+        ], 201);
     }
 }

@@ -74,5 +74,8 @@ class ObscoleteStockController extends Controller
         $obs->update([
             'quantity'=>$request['quantity']
         ]);
+		return response()->json([
+            'message' => 'Edited successfully',
+        ], 201);
     }
 }

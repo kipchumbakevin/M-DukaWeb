@@ -74,5 +74,8 @@ class ShoppingListController extends Controller
 	    $sh->update([
 	        'quantity'=>$request['quantity']
         ]);
+		return response()->json([
+            'message' => 'Edited successfully',
+        ], 201);
     }
 }
