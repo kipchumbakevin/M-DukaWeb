@@ -67,4 +67,10 @@ class GivenStockController extends Controller
         ], 201);
     }
 
+    public function editGiven(Request $request){
+        $gg = GivenStock::where('id',$request['id'])->first();
+        $gg->update([
+            'quantity'=>$request['quantity']
+        ]);
+    }
 }

@@ -69,5 +69,10 @@ class ShoppingListController extends Controller
         ], 201);
     }
 
-
+    public function editShopping(Request $request){
+	    $sh = ShoppingList::where('id',$request['id'])->first();
+	    $sh->update([
+	        'quantity'=>$request['quantity']
+        ]);
+    }
 }

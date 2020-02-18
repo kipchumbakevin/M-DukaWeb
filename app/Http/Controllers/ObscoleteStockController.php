@@ -68,4 +68,11 @@ class ObscoleteStockController extends Controller
             'message' => 'Deleted successfully',
         ], 201);
     }
+
+    public function editObscolete(Request $request){
+        $obs = ObscoleteStock::where('id',$request['id'])->first();
+        $obs->update([
+            'quantity'=>$request['quantity']
+        ]);
+    }
 }
