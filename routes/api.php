@@ -128,6 +128,10 @@ Route::post("/getgivenlist","GivenStockController@fetchGiven");
 Route::post("/deletefromgiven","GivenStockController@deleteFromGiven");
 Route::post("/editgiven","GivenStockController@editGiven");
 
+//ads
+Route::post("/insertads","AdsController@insert");
+Route::get("/getads","AdsController@getAll");
+
 
 
 
