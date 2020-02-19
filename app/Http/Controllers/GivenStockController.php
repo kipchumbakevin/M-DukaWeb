@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\GivenStock;
 use App\Item;
+use App\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +17,7 @@ class GivenStockController extends Controller
     public function insert(Request $request){
         $give = new GivenStock();
         $id = $request->input('item_id');
+        $pp = Purchase::where('item_id',$id)->first();
         $q =$request->input('quantity');
         $ga = [];
         $gall = GivenStock::all();
@@ -24,7 +26,11 @@ class GivenStockController extends Controller
         }
         if (in_array($id,$ga)){
             $given = GivenStock::where('item_id',$id)->first();
-            $given->update( ['quantity'=>($given->quantity)+$q]);
+            $given->update( [
+                'quantity'=>($given->quantity)+$q]);
+            $pp->update([
+                'quantity'=>$pp->quantity-$q
+            ]);
             return response()->json([
                 'message'=>'Added successfully',
             ],201);
@@ -33,6 +39,9 @@ class GivenStockController extends Controller
             $give->item_id = $id;
             $give->quantity=$q;
             $give->save();
+            $pp->update([
+                'quantity'=>$pp->quantity-$q
+            ]);
             return response()->json([
                 'message'=>'Added successfully',
                 'error'=>false

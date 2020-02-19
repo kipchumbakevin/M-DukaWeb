@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\ObscoleteStock;
+use App\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +16,7 @@ class ObscoleteStockController extends Controller
     }
     public function insert(Request $request){
         $id = $request->input('item_id');
+        $pp = Purchase::where('item_id',$id)->first();
         $q = $request->input('quantity');
         $ob = [];
         $obsall = ObscoleteStock::all();
@@ -26,6 +28,9 @@ class ObscoleteStockController extends Controller
             $obscolete->update(
                 ['quantity'=>$obscolete->quantity + $q]
             );
+            $pp->update([
+                'quantity'=>$pp->quantity-$q
+            ]);
             return response()->json([
                 'message'=>'Added successfully',
                 'error'=>false
@@ -36,6 +41,9 @@ class ObscoleteStockController extends Controller
             $obsc->item_id = $id;
             $obsc->quantity= $q;
             $obsc->save();
+            $pp->update([
+                'quantity'=>$pp->quantity-$q
+            ]);
             return response()->json([
                 'message'=>'Added successfully',
                 'error'=>false
@@ -71,6 +79,7 @@ class ObscoleteStockController extends Controller
 
     public function editObscolete(Request $request){
         $obs = ObscoleteStock::where('id',$request['id'])->first();
+        $pp = Purchase::where('id',$request['id'])->first();
         $obs->update([
             'quantity'=>$request['quantity']
         ]);

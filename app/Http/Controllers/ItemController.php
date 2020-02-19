@@ -98,7 +98,7 @@ class ItemController extends Controller
         $item = Item::find($request['item_id']);
 //        $itemproperties = ItemProperty::find($request['item_id']);
         $purchase->update([
-//            'quantity' => $request['quantity'],
+              'quantity' => $request['quantity'],
 //            'size' => $request['size'],
             'selling_price'=>$request['sellingprice']
         ]);
