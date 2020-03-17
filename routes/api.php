@@ -55,7 +55,7 @@ Route::post("/changepassword","ChangePersonalInfoController@changePassword");
 Route::post("/addsales","SalesController@insert");//body(quantity,costprice,purchase_id)
 Route::post("/getmonthlysales","SalesController@getMonthlySales");//body(month,year)
 Route::post("/getprofitloss","SalesController@getTotalSummary");//body(month,year)
-
+Route::post("/deletesale","SalesController@deleteSale");
 Route::post("/sales","SalesController@getSalesDetails");
 
 //months

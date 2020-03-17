@@ -77,9 +77,14 @@ class GivenStockController extends Controller
     }
 
     public function editGiven(Request $request){
+        $qqq = $request->input('quantity');
+        $pp = Purchase::where('item_id',$request['item_id'])->first();
         $gg = GivenStock::where('id',$request['id'])->first();
         $gg->update([
-            'quantity'=>$request['quantity']
+            'quantity'=>$qqq
+        ]);
+        $pp->update([
+            'quantity'=>$pp->quantity-$qqq
         ]);
 		return response()->json([
             'message' => 'Edited successfully',

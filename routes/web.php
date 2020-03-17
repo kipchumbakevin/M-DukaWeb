@@ -21,5 +21,5 @@ Route::get('/terms', function () {
     return view('terms');
 });
 Route::get('/contact', function () {
-    return view('contact');
+    return view('contactus');
 });

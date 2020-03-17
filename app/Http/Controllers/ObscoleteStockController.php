@@ -78,10 +78,14 @@ class ObscoleteStockController extends Controller
     }
 
     public function editObscolete(Request $request){
+        $qqq = $request->input('quantity');
+        $pp = Purchase::where('item_id',$request['item_id'])->first();
         $obs = ObscoleteStock::where('id',$request['id'])->first();
-        $pp = Purchase::where('id',$request['id'])->first();
         $obs->update([
-            'quantity'=>$request['quantity']
+            'quantity'=>$qqq
+        ]);
+        $pp->update([
+            'quantity'=>$pp->quantity-$qqq
         ]);
 		return response()->json([
             'message' => 'Edited successfully',
